@@ -12,6 +12,7 @@ import { FuncionarioListaComponent } from './pages/funcionario/funcionario-lista
 import { FooterComponent } from './fragments/footer/footer.component';
 import { HeaderComponent } from './fragments/header/header.component';
 import { SidebarComponent } from './fragments/sidebar/sidebar.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SidebarComponent } from './fragments/sidebar/sidebar.component';
     FooterComponent,
     HeaderComponent,
     SidebarComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
