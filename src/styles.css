@@ -33,6 +33,10 @@ body {
     overflow: hidden;
 }
 
+.list-group-item {
+    cursor: pointer;
+}
+
 
 /* campos de formulario */
 
