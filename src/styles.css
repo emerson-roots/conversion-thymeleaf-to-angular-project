@@ -19,8 +19,28 @@ body {
 }
 
 body {
-    padding-top: 56px;
+    padding-top: 40px;
     padding-left: 0;
+}
+
+
+/* sidenav */
+
+.drawer-container {
+    width: 100%;
+    height: 100%;
+    margin: 8px;
+}
+
+mat-drawer {
+    height: 100%;
+}
+
+mat-drawer-content {
+    padding-left: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 
@@ -30,7 +50,7 @@ body {
 
 .layout-main {
     display: flex;
-    min-height: calc(100vh - 52px);
+    min-height: calc(100vh - 128px);
     overflow: hidden;
 }
 
@@ -68,7 +88,7 @@ select {
 
 .sidebar {
     width: 0px;
-    height: 100vh;
+    height: 85vh;
     border-top: 1px solid #eee;
     border-right: 1px solid #eee;
     background-color: #f8f9fa;

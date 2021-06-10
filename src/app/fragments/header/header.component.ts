@@ -1,3 +1,4 @@
+import { SidebarService } from './../../services/sidebar.service';
 import { Component, OnInit } from '@angular/core';
 declare var $: any;
 
@@ -8,23 +9,16 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  toggleActive:boolean = false;
+
+  constructor(
+    public sidebarService: SidebarService) { }
 
   ngOnInit(): void {
   }
 
-  /**
-   * necessario dependencia @type/jquery
-   * e declarar a var $
-   */
-  hideOrShowSidebar() {
-
-    $(document).ready(function () {
-      $(".navbar-toggle").click(function () {
-        $(".sidebar").toggleClass("sidebar-open");
-      })
-    });
-
+  toggleDrawer() {
+    this.sidebarService.drawerToggle();
   }
 
 }

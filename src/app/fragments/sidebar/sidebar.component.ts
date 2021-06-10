@@ -1,4 +1,8 @@
+
+import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+
+  @ViewChild('drawer', {static: true}) public drawer!: MatDrawer;
+
+  constructor(private sidebarService: SidebarService) { }
 
   ngOnInit(): void {
+    this.sidebarService.setDrawer(this.drawer);
   }
 
 }
