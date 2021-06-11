@@ -1,4 +1,4 @@
-<mat-drawer-container class="drawer-container">
+<mat-drawer-container class="drawer-container-example">
     <mat-drawer #drawer mode="side" opened="true">
 
         <!-- home -->
@@ -18,7 +18,7 @@
                     <span class="nav-link active">Departamentos</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/departamentos/cadastrar">
                         <i class="oi oi-plus"></i>
                         <span>Cadastrar</span>
                     </a>
@@ -70,8 +70,8 @@
     </mat-drawer>
 
     <!-- conteudo das paginas -->
-    <mat-drawer-content>
+    <!-- <mat-drawer-content> -->
         <ng-content></ng-content>
-    </mat-drawer-content>
+    <!-- </mat-drawer-content> -->
 
 </mat-drawer-container>

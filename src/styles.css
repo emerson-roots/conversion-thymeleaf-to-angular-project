@@ -19,29 +19,29 @@ body {
 }
 
 body {
-    padding-top: 40px;
+    padding-top: 56px;
     padding-left: 0;
 }
 
 
 /* sidenav */
 
-.drawer-container {
+.drawer-container-example {
     width: 100%;
-    height: 100%;
-    margin: 8px;
+    height: 107%;
+    margin: 0px;
 }
 
-mat-drawer {
+/* mat-drawer {
     height: 100%;
-}
+} */
 
-mat-drawer-content {
+/* mat-drawer-content {
     padding-left: 0px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
+} */
 
 
 /*
@@ -50,20 +50,12 @@ mat-drawer-content {
 
 .layout-main {
     display: flex;
-    min-height: calc(100vh - 128px);
+    min-height: calc(100vh - 52px);
     overflow: hidden;
 }
 
 .list-group-item {
     cursor: pointer;
-}
-
-
-/* campos de formulario */
-
-input,
-select {
-    margin-bottom: 15px;
 }
 
 
@@ -78,7 +70,7 @@ select {
 
 .container {
     width: 100%;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 
@@ -88,7 +80,7 @@ select {
 
 .sidebar {
     width: 0px;
-    height: 85vh;
+    height: 100vh;
     border-top: 1px solid #eee;
     border-right: 1px solid #eee;
     background-color: #f8f9fa;
@@ -133,7 +125,6 @@ select {
 .sidebar.sidebar-open {
     width: 300px;
 }
-
 
 /*
   * nav-pills home
