@@ -24,14 +24,11 @@
 
             <p>
                 <i class="oi oi-magnifying-glass"></i><span></span>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNome"
-                    aria-controls="collapseNome">Nome
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNome" aria-controls="collapseNome">Nome
                 </button>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseCargo"
-                    aria-controls="collapseCargo">Cargo
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseCargo" aria-controls="collapseCargo">Cargo
                 </button>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseData"
-                    aria-controls="collapseData">Datas
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseData" aria-controls="collapseData">Datas
                 </button>
             </p>
             <div class="row">
@@ -40,8 +37,7 @@
 
                         <nav class="navbar navbar-light bg-light">
                             <form class="form-inline" method="GET" action="/funcionarios/buscar/nome">
-                                <input class="form-control mr-sm-2" type="search" placeholder="nome" aria-label="Search"
-                                    name="nome" />
+                                <input class="form-control mr-sm-2" type="search" placeholder="nome" aria-label="Search" name="nome" />
                                 <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
                             </form>
                         </nav>
@@ -116,10 +112,8 @@
                             <td>Recursos Humanos</td>
                             <td>Auxiliar de RH</td>
                             <td>
-                                <button type="button" class="btn btn-secondary btn-sm" data-container="body"
-                                    data-toggle="popover" data-placement="top"
-                                    data-content="Rua das Oliveiras, 260 Fundos - Centro, Porto Alegre - RS - 97050-015">
-                                    <span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
+                                <button type="button" class="btn btn-secondary btn-sm" ngbPopover="Rua das Oliveiras, 260 Fundos - Centro, Porto Alegre - RS - 97050-015" triggers="mouseenter:mouseleave" popoverTitle="Endereço">
+                                    <span class="oi oi-eye"></span>
                                 </button>
                             </td>
                             <td>01/10/2014</td>
@@ -128,8 +122,7 @@
                                 <a class="btn btn-info btn-sm" href="/funcionarios/editar/1" role="button">
                                     <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
                                 </a>
-                                <button id="btn_funcionarios/excluir/1" type="button" class="btn btn-danger btn-sm"
-                                    data-toggle="modal" data-target="#myModal">
+                                <button id="btn_funcionarios/excluir/1" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
                                     <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
                                 </button>
                             </td>
@@ -141,10 +134,8 @@
                             <td>Administração</td>
                             <td>Auxiliar Administrativo</td>
                             <td>
-                                <button type="button" class="btn btn-secondary btn-sm" data-container="body"
-                                    data-toggle="popover" data-placement="top"
-                                    data-content="Av. dos Palmares, 320  - Ribeirão, Canoas - RS - 98050-908">
-                                    <span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
+                                <button type="button" class="btn btn-secondary btn-sm" ngbPopover="Av. dos Palmares, 320  - Ribeirão, Canoas - RS - 98050-908" triggers="mouseenter:mouseleave" popoverTitle="Endereço">
+                                    <span class="oi oi-eye"  aria-hidden="true"></span>
                                 </button>
                             </td>
                             <td>01/08/2014</td>
@@ -153,8 +144,7 @@
                                 <a class="btn btn-info btn-sm" href="/funcionarios/editar/2" role="button">
                                     <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
                                 </a>
-                                <button id="btn_funcionarios/excluir/2" type="button" class="btn btn-danger btn-sm"
-                                    data-toggle="modal" data-target="#myModal">
+                                <button id="btn_funcionarios/excluir/2" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
                                     <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
                                 </button>
                             </td>
@@ -166,10 +156,8 @@
                             <td>Tecnologia da Informação</td>
                             <td>Desenvolvedor Java Jr.</td>
                             <td>
-                                <button type="button" class="btn btn-secondary btn-sm" data-container="body"
-                                    data-toggle="popover" data-placement="top"
-                                    data-content="Rua Senador Cassiano do Nascimento, 135 AP. 106 - Noroeste, Porto Alegre - RS - 90798-099">
-                                    <span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
+                                <button type="button" class="btn btn-secondary btn-sm" ngbPopover="Rua Senador Cassiano do Nascimento, 135 AP. 106 - Noroeste, Porto Alegre - RS - 90798-099" triggers="mouseenter:mouseleave" popoverTitle="Endereço">
+                                    <span class="oi oi-eye"  aria-hidden="true"></span>
                                 </button>
                             </td>
                             <td>05/01/2015</td>
@@ -178,8 +166,7 @@
                                 <a class="btn btn-info btn-sm" href="/funcionarios/editar/3" role="button">
                                     <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
                                 </a>
-                                <button id="btn_funcionarios/excluir/3" type="button" class="btn btn-danger btn-sm"
-                                    data-toggle="modal" data-target="#myModal">
+                                <button id="btn_funcionarios/excluir/3" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
                                     <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
                                 </button>
                             </td>
@@ -191,10 +178,8 @@
                             <td>Contabilidade</td>
                             <td>Auxiliar Contábil</td>
                             <td>
-                                <button type="button" class="btn btn-secondary btn-sm" data-container="body"
-                                    data-toggle="popover" data-placement="top"
-                                    data-content="Av. Maracanã, 309 AP. 108 - Maracanã, Rio de Janeiro - RJ - 91050-980">
-                                    <span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
+                                <button type="button" class="btn btn-secondary btn-sm" ngbPopover="Av. Maracanã, 309 AP. 108 - Maracanã, Rio de Janeiro - RJ - 91050-980" triggers="mouseenter:mouseleave" popoverTitle="Endereço">
+                                    <span class="oi oi-eye"  aria-hidden="true"></span>
                                 </button>
                             </td>
                             <td>18/10/2013</td>
@@ -203,8 +188,7 @@
                                 <a class="btn btn-info btn-sm" href="/funcionarios/editar/4" role="button">
                                     <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
                                 </a>
-                                <button id="btn_funcionarios/excluir/4" type="button" class="btn btn-danger btn-sm"
-                                    data-toggle="modal" data-target="#myModal">
+                                <button id="btn_funcionarios/excluir/4" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
                                     <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
                                 </button>
                             </td>
@@ -216,10 +200,8 @@
                             <td>Recursos Humanos</td>
                             <td>Coordenador de RH</td>
                             <td>
-                                <button type="button" class="btn btn-secondary btn-sm" data-container="body"
-                                    data-toggle="popover" data-placement="top"
-                                    data-content="Rua Gomes Carneiro, 909  - Centro, Porto Alegre - RS - 98080-999">
-                                    <span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
+                                <button type="button" class="btn btn-secondary btn-sm" ngbPopover="Rua Gomes Carneiro, 909  - Centro, Porto Alegre - RS - 98080-999" triggers="mouseenter:mouseleave" popoverTitle="Endereço">
+                                    <span class="oi oi-eye"  aria-hidden="true"></span>
                                 </button>
                             </td>
                             <td>01/05/2015</td>
@@ -228,8 +210,7 @@
                                 <a class="btn btn-info btn-sm" href="/funcionarios/editar/5" role="button">
                                     <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
                                 </a>
-                                <button id="btn_funcionarios/excluir/5" type="button" class="btn btn-danger btn-sm"
-                                    data-toggle="modal" data-target="#myModal">
+                                <button id="btn_funcionarios/excluir/5" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
                                     <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
                                 </button>
                             </td>

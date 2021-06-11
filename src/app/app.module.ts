@@ -14,10 +14,11 @@ import { FooterComponent } from './fragments/footer/footer.component';
 import { HeaderComponent } from './fragments/header/header.component';
 import { SidebarComponent } from './fragments/sidebar/sidebar.component';
 import { HomeComponent } from './pages/home/home.component';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarService } from './services/sidebar.service';
 import { NgxMaskModule } from 'ngx-mask';
+import { NgbPaginationModule, NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,10 @@ import { NgxMaskModule } from 'ngx-mask';
       // IMPORTANTE: ao levar os dados para a tela, por exemplo num get dados
       // é importante implementar uma forma de levar os dados ja com a mascara
       dropSpecialCharacters: false
-    })
+    }),
+    NgbPaginationModule,
+    NgbAlertModule,
+    NgbModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
