@@ -27,16 +27,14 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nome">Nome do Funcionário</label>
-                        <input type="text" class="form-control" id="nome" placeholder="Nome Completo"
-                            autofocus="autofocus" name="nome" value="" />
+                        <input type="text" class="form-control" id="nome" placeholder="Nome Completo" autofocus="autofocus" name="nome" value="" />
                         <div class="invalid-feedback">
 
                         </div>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="salario">Salário Bruto</label>
-                        <input type="text" class="form-control" id="salario" data-mask="#.##0,00"
-                            data-mask-reverse="true" name="salario" value="" />
+                        <input type="text" class="form-control" id="salario" mask="separator.2" thousandSeparator="." name="salario" value="" placeholder="0.000.000,00" />
                         <div class="invalid-feedback">
 
                         </div>
@@ -90,8 +88,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="logradouro">Logradouro</label>
-                        <input type="text" class="form-control" id="logradouro" placeholder="logradouro sem número"
-                            name="endereco.logradouro" value="" />
+                        <input type="text" class="form-control" id="logradouro" placeholder="logradouro sem número" name="endereco.logradouro" value="" />
                         <div class="invalid-feedback">
 
                         </div>
@@ -107,8 +104,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="complemento">Complemento</label>
-                        <input type="text" class="form-control" id="complemento" placeholder="fundos, casa, AP. 102, .."
-                            name="endereco.complemento" value="" />
+                        <input type="text" class="form-control" id="complemento" placeholder="fundos, casa, AP. 102, .." name="endereco.complemento" value="" />
                         <div class="invalid-feedback">
 
                         </div>
@@ -159,8 +155,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label for="cep">Cep</label>
-                        <input type="text" class="form-control" id="cep" data-mask="00000-000" name="endereco.cep"
-                            value="" />
+                        <input type="text" class="form-control" id="cep" mask="00.000-000" placeholder="00.000-000" name="endereco.cep" value="" />
                         <div class="invalid-feedback">
 
                         </div>

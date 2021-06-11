@@ -17,6 +17,7 @@ import { HomeComponent } from './pages/home/home.component';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { SidebarService } from './services/sidebar.service';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,13 @@ import { SidebarService } from './services/sidebar.service';
     BrowserModule,
     BrowserAnimationsModule,
     MatSidenavModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxMaskModule.forRoot({
+      // dropSpecialCharacters: ao salvar mantem a mascara...
+      // IMPORTANTE: ao levar os dados para a tela, por exemplo num get dados
+      // é importante implementar uma forma de levar os dados ja com a mascara
+      dropSpecialCharacters: false
+    })
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
