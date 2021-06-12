@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarService } from './services/sidebar.service';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgbPaginationModule, NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { NgbPaginationModule, NgbAlertModule, NgbModule } from '@ng-bootstrap/ng
     }),
     NgbPaginationModule,
     NgbAlertModule,
-    NgbModule
+    NgbModule,
+    FormsModule //necessario para obter os dados de formularios
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

@@ -1,3 +1,4 @@
+import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DepartamentoCadastroComponent implements OnInit {
 
+  //injeta objeto para trabalhar com binding
+  departamentoDTO: DepartamentoDTO = {
+    nome: "",
+  };
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  salvar(){
+    console.log(this.departamentoDTO);
   }
 
 }
