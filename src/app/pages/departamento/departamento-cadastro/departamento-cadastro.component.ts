@@ -12,7 +12,8 @@ export class DepartamentoCadastroComponent implements OnInit {
 
   //injeta objeto para trabalhar com binding
   departamentoDTO: DepartamentoDTO = {
-    nome: "",
+    id: "",
+    nome: ""
   };
 
   constructor(

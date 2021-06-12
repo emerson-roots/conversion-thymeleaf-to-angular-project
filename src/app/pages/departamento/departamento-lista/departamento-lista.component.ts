@@ -1,3 +1,5 @@
+import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
+import { DepartamentoService } from './../../../services/departamento.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DepartamentoListaComponent implements OnInit {
 
-  constructor() { }
+  departamentosDTO!: DepartamentoDTO[];
+
+  constructor(
+    public dptoService: DepartamentoService) { }
 
   ngOnInit(): void {
+    this.dptoService.findAll()
+      .subscribe(response => {
+        this.departamentosDTO = response
+        console.log(this.departamentosDTO);
+      },
+        error => {
+          console.log(error);
+        });
   }
 
 }
