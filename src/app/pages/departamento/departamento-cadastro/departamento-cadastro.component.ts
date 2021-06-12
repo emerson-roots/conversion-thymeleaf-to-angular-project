@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { DepartamentoService } from './../../../services/departamento.service';
 import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
 import { Component, OnInit } from '@angular/core';
 
@@ -13,13 +15,22 @@ export class DepartamentoCadastroComponent implements OnInit {
     nome: "",
   };
 
-  constructor() { }
+  constructor(
+    public router: Router,
+    public departamentoService: DepartamentoService) { }
 
   ngOnInit(): void {
   }
 
-  salvar(){
-    console.log(this.departamentoDTO);
+  salvar() {
+    this.departamentoService.insert(this.departamentoDTO)
+      .subscribe(response => {
+        //se obtiver sucesso ao salvar, imprime url com o id do registro criado
+        console.log(response.headers.get('location'))
+        this.router.navigate(['departamentos/cadastrar'])
+      }, error => {
+        console.log('Erro ao salvar departamento: ' + error)
+      });
   }
 
 }

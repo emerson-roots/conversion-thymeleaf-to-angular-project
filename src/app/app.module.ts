@@ -1,3 +1,4 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,6 +21,7 @@ import { SidebarService } from './services/sidebar.service';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgbPaginationModule, NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { DepartamentoService } from './services/departamento.service';
 
 @NgModule({
   declarations: [
@@ -49,11 +51,13 @@ import { FormsModule } from '@angular/forms';
     NgbPaginationModule,
     NgbAlertModule,
     NgbModule,
-    FormsModule //necessario para obter os dados de formularios
+    FormsModule, //necessario para obter os dados de formularios
+    HttpClientModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-    SidebarService
+    SidebarService,
+    DepartamentoService
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
