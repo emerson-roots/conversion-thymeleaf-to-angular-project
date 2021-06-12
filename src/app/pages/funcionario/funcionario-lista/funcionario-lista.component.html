@@ -24,16 +24,16 @@
 
             <p>
                 <i class="oi oi-magnifying-glass"></i><span></span>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNome" aria-controls="collapseNome">Nome
+                <button class="btn btn-primary" type="button" (click)="nomeCollapsed = !nomeCollapsed" [attr.aria-expanded]="!nomeCollapsed">Nome
                 </button>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseCargo" aria-controls="collapseCargo">Cargo
+                <button class="btn btn-primary" type="button" (click)="cargoCollapsed = !cargoCollapsed" [attr.aria-expanded]="!cargoCollapsed">Cargo
                 </button>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseData" aria-controls="collapseData">Datas
+                <button class="btn btn-primary" type="button" (click)="departamentoCollapsed = !departamentoCollapsed" [attr.aria-expanded]="!departamentoCollapsed">Datas
                 </button>
             </p>
             <div class="row">
                 <div class="col">
-                    <div class="collapse" id="collapseNome">
+                    <div class="collapse" id="collapseNome" [(ngbCollapse)]="nomeCollapsed">
 
                         <nav class="navbar navbar-light bg-light">
                             <form class="form-inline" method="GET" action="/funcionarios/buscar/nome">
@@ -47,7 +47,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="collapse" id="collapseCargo">
+                    <div class="collapse" id="collapseCargo" [(ngbCollapse)]="cargoCollapsed">
 
                         <nav class="navbar navbar-light bg-light">
                             <form class="form-inline" method="GET" action="/funcionarios/buscar/cargo">
@@ -74,7 +74,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="collapse" id="collapseData">
+                    <div class="collapse" id="collapseData" [(ngbCollapse)]="departamentoCollapsed">
 
                         <nav class="navbar navbar-light bg-light">
                             <form class="form-inline" method="GET" action="/funcionarios/buscar/data">

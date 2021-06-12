@@ -9,6 +9,11 @@ export class FuncionarioListaComponent implements OnInit {
 
   constructor() { }
 
+  // variaveis para trabalhar em conjunto do ng-boostrap-collapse do html
+  public nomeCollapsed = true;
+  public cargoCollapsed = true;
+  public departamentoCollapsed = true;
+
   ngOnInit(): void {
   }
 
