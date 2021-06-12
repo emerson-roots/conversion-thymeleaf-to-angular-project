@@ -18,7 +18,6 @@ export class DepartamentoListaComponent implements OnInit {
     this.dptoService.findAll()
       .subscribe(response => {
         this.departamentosDTO = response
-        console.log(this.departamentosDTO);
       },
         error => {
           console.log(error);
