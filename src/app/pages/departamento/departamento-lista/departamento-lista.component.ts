@@ -20,7 +20,8 @@ export class DepartamentoListaComponent implements OnInit {
         this.departamentosDTO = response
       },
         error => {
-          console.log(error);
+          /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
+           posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
         });
   }
 

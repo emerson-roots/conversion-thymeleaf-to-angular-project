@@ -22,6 +22,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { NgbPaginationModule, NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { DepartamentoService } from './services/departamento.service';
+import { ErrorInterceptorProvider } from './interceptors/error-interceptor';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { DepartamentoService } from './services/departamento.service';
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     SidebarService,
-    DepartamentoService
+    DepartamentoService,
+    ErrorInterceptorProvider
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
