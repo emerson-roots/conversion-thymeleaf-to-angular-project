@@ -22,11 +22,11 @@
         </nav>
 
         <div class="container" id="cadastro">
-            <form method="POST">
+            <form [formGroup]="formGroup">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nome">Departamento</label>
-                        <input [(ngModel)]="departamentoDTO.nome" type="text" class="form-control" id="nome" placeholder="Nome Departamento" autofocus="autofocus" name="nome" value="" />
+                        <input [(ngModel)]="departamentoDTO.nome" type="text" class="form-control" id="nome" placeholder="Nome Departamento" autofocus="autofocus" formControlName="nome" value="" />
                     </div>
                 </div>
                 <input type="hidden" id="id" name="id" value="" />

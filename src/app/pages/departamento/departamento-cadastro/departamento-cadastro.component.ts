@@ -1,10 +1,9 @@
 import { ErrorService } from './../../../services/error.service';
-import { ErrorFields } from './../../../config/error.fields';
 import { Router } from '@angular/router';
 import { DepartamentoService } from './../../../services/departamento.service';
-import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
-import { Component, ErrorHandler, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
+import { DepartamentoDTO } from 'src/app/model/dto/departamento.dto';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-departamento-cadastro',
@@ -13,16 +12,25 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class DepartamentoCadastroComponent implements OnInit {
 
-  //injeta objeto para trabalhar com binding
-  departamentoDTO: DepartamentoDTO = {
-    id: "",
-    nome: ""
-  };
+  formGroup: FormGroup;
+    //injeta objeto para trabalhar com binding
+    departamentoDTO: DepartamentoDTO = {
+      id: "",
+      nome: ""
+    };
 
   constructor(
     public router: Router,
     public departamentoService: DepartamentoService,
-    public errorService: ErrorService) { }
+    public errorService: ErrorService,
+    public formBuilder: FormBuilder) {
+
+    //instancia formulario
+    this.formGroup = this.formBuilder.group({
+      //cria os campos e ja insere um valor padrao ao input HTML (é possivel predefinir valores iniciais)
+      nome: ['teste input preenchido pelo formgroup']
+    })
+  }
 
   ngOnInit(): void {
   }

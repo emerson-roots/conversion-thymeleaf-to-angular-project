@@ -20,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarService } from './services/sidebar.service';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgbPaginationModule, NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DepartamentoService } from './services/departamento.service';
 import { ErrorInterceptorProvider } from './interceptors/error-interceptor';
 import { ErrorComponent } from './pages/error/error.component';
@@ -56,7 +56,8 @@ import { ErrorService } from './services/error.service';
     NgbAlertModule,
     NgbModule,
     FormsModule, //necessario para obter os dados de formularios
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
