@@ -24,6 +24,14 @@ body {
 }
 
 
+/* paragrafo de validação dos inputs */
+
+.danger {
+    color: red;
+    margin-bottom: 0px;
+}
+
+
 /* sidenav */
 
 .drawer-container-example {
@@ -32,9 +40,11 @@ body {
     margin: 0px;
 }
 
+
 /* mat-drawer {
     height: 100%;
 } */
+
 
 /* mat-drawer-content {
     padding-left: 0px;
@@ -125,6 +135,7 @@ body {
 .sidebar.sidebar-open {
     width: 300px;
 }
+
 
 /*
   * nav-pills home

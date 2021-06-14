@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DepartamentoService } from './../../../services/departamento.service';
 import { DepartamentoDTO } from 'src/app/model/dto/departamento.dto';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-departamento-cadastro',
@@ -28,7 +28,7 @@ export class DepartamentoCadastroComponent implements OnInit {
     //instancia formulario
     this.formGroup = this.formBuilder.group({
       //cria os campos e ja insere um valor padrao ao input HTML (é possivel predefinir valores iniciais)
-      nome: ['teste input preenchido pelo formgroup']
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]]
     })
   }
 
