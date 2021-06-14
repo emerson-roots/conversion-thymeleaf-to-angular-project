@@ -1,7 +1,10 @@
+import { ErrorService } from './../../../services/error.service';
+import { ErrorFields } from './../../../config/error.fields';
 import { Router } from '@angular/router';
 import { DepartamentoService } from './../../../services/departamento.service';
 import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
-import { Component, OnInit } from '@angular/core';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-departamento-cadastro',
@@ -18,7 +21,8 @@ export class DepartamentoCadastroComponent implements OnInit {
 
   constructor(
     public router: Router,
-    public departamentoService: DepartamentoService) { }
+    public departamentoService: DepartamentoService,
+    public errorService: ErrorService) { }
 
   ngOnInit(): void {
   }
@@ -30,7 +34,11 @@ export class DepartamentoCadastroComponent implements OnInit {
         console.log(response.headers.get('location'))
         this.router.navigate(['departamentos/cadastrar'])
       }, error => {
-        console.log('Erro ao salvar departamento: ' + error)
+
+        this.errorService.goToPageError(error);
+
+        this.router.navigate(['error']);
+
       });
   }
 

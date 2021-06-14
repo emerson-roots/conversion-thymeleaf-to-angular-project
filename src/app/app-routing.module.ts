@@ -1,3 +1,4 @@
+import { ErrorComponent } from './pages/error/error.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CargoCadastroComponent } from './pages/cargo/cargo-cadastro/cargo-cadastro.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'cargos/listar', component: CargoListaComponent},
   {path: 'funcionarios/cadastrar', component: FuncionarioCadastroComponent},
   {path: 'funcionarios/listar', component: FuncionarioListaComponent},
+  {path: 'error', component: ErrorComponent},
 ];
 
 @NgModule({

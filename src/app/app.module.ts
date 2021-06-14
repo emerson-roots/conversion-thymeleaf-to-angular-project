@@ -23,6 +23,8 @@ import { NgbPaginationModule, NgbAlertModule, NgbModule } from '@ng-bootstrap/ng
 import { FormsModule } from '@angular/forms';
 import { DepartamentoService } from './services/departamento.service';
 import { ErrorInterceptorProvider } from './interceptors/error-interceptor';
+import { ErrorComponent } from './pages/error/error.component';
+import { ErrorService } from './services/error.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { ErrorInterceptorProvider } from './interceptors/error-interceptor';
     FooterComponent,
     HeaderComponent,
     SidebarComponent,
-    HomeComponent
+    HomeComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { ErrorInterceptorProvider } from './interceptors/error-interceptor';
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     SidebarService,
     DepartamentoService,
-    ErrorInterceptorProvider
+    ErrorInterceptorProvider,
+    ErrorService
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
