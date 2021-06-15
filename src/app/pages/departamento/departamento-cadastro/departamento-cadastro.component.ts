@@ -1,9 +1,11 @@
 import { ErrorService } from './../../../services/error.service';
 import { Router } from '@angular/router';
 import { DepartamentoService } from './../../../services/departamento.service';
-import { DepartamentoDTO } from 'src/app/model/dto/departamento.dto';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs/Rx';
+import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-departamento-cadastro',
@@ -13,11 +15,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DepartamentoCadastroComponent implements OnInit {
 
   formGroup: FormGroup;
-    //injeta objeto para trabalhar com binding
-    departamentoDTO: DepartamentoDTO = {
-      id: "",
-      nome: ""
-    };
+
+  //alert ng-bootstrap
+  private _success = new Subject<string>();
+  successMessage = '';
+  tipoMensagem: string = "";
+  @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
+
 
   constructor(
     public router: Router,
@@ -33,14 +37,31 @@ export class DepartamentoCadastroComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //carrega alert
+    this._success
+      .subscribe(message => this.successMessage = message);
+    this._success.pipe(debounceTime(5000))
+      .subscribe(() => {
+        if (this.selfClosingAlert) {
+          //adiciona um fade rapido
+          this.selfClosingAlert.animation = true;
+          //fecha alert apos o tempo programado
+          this.selfClosingAlert.close();
+
+        }
+      });
   }
 
   salvar() {
-    this.departamentoService.insert(this.departamentoDTO)
+    this.departamentoService.insert(this.formGroup.value)
       .subscribe(response => {
-        //se obtiver sucesso ao salvar, imprime url com o id do registro criado
-        console.log(response.headers.get('location'))
-        this.router.navigate(['departamentos/cadastrar'])
+
+        //chama um alert do ng-bootstrap
+        this.changeSuccessMessage("Departamento cadastrado com sucesso!", "success");
+
+        //limpa formulario
+        this.formGroup.reset()
+
       }, error => {
 
         this.errorService.goToPageError(error);
@@ -50,4 +71,10 @@ export class DepartamentoCadastroComponent implements OnInit {
       });
   }
 
+  changeSuccessMessage(mensagem: string, type: string) {
+    //seta o tipo da mensagem 'success', 'info', 'warning', 'danger', 'primary', 'secondary', 'light'e 'dark
+    this.tipoMensagem = type;
+    //escreve a mensagem
+    this._success.next(mensagem);
+  }
 }

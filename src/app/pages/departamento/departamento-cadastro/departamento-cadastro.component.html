@@ -20,7 +20,8 @@
                 </a>
             </div>
         </nav>
-
+        <!-- mensagem de alert ao inserir com sucesso o objeto -->
+        <ngb-alert #selfClosingAlert *ngIf="successMessage" type="{{ tipoMensagem }}" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
         <div class="container" id="cadastro">
             <form [formGroup]="formGroup">
                 <div class="form-row">
