@@ -1,11 +1,9 @@
 import { ErrorService } from './../../../services/error.service';
 import { Router } from '@angular/router';
 import { DepartamentoService } from './../../../services/departamento.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs/Rx';
-import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
-import { debounceTime } from 'rxjs/operators';
+import { AlertService } from 'src/app/fragments/alert/alert.service';
 
 @Component({
   selector: 'app-departamento-cadastro',
@@ -14,20 +12,19 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class DepartamentoCadastroComponent implements OnInit {
 
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: false
+  };
+
   formGroup: FormGroup;
-
-  //alert ng-bootstrap
-  private _success = new Subject<string>();
-  successMessage = '';
-  tipoMensagem: string = "";
-  @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
-
 
   constructor(
     public router: Router,
     public departamentoService: DepartamentoService,
     public errorService: ErrorService,
-    public formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder,
+    public alertService: AlertService) {
 
     //instancia formulario
     this.formGroup = this.formBuilder.group({
@@ -37,28 +34,15 @@ export class DepartamentoCadastroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //carrega alert
-    this._success
-      .subscribe(message => this.successMessage = message);
-    this._success.pipe(debounceTime(5000))
-      .subscribe(() => {
-        if (this.selfClosingAlert) {
-          //adiciona um fade rapido
-          this.selfClosingAlert.animation = true;
-          //fecha alert apos o tempo programado
-          this.selfClosingAlert.close();
 
-        }
-      });
   }
 
   salvar() {
     this.departamentoService.insert(this.formGroup.value)
       .subscribe(response => {
 
-        //chama um alert do ng-bootstrap
-        this.changeSuccessMessage("Departamento cadastrado com sucesso!", "success");
-
+        //chama o serviço de alert... segundo parametro é opcional
+        this.alertService.success(`Departamento ${JSON.stringify(this.formGroup.controls.nome.value)} cadastrado com sucesso!`)
         //limpa formulario
         this.formGroup.reset()
 
@@ -69,12 +53,5 @@ export class DepartamentoCadastroComponent implements OnInit {
         this.router.navigate(['error']);
 
       });
-  }
-
-  changeSuccessMessage(mensagem: string, type: string) {
-    //seta o tipo da mensagem 'success', 'info', 'warning', 'danger', 'primary', 'secondary', 'light'e 'dark
-    this.tipoMensagem = type;
-    //escreve a mensagem
-    this._success.next(mensagem);
   }
 }

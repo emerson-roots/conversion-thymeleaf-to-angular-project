@@ -25,6 +25,7 @@ import { DepartamentoService } from './services/departamento.service';
 import { ErrorInterceptorProvider } from './interceptors/error-interceptor';
 import { ErrorComponent } from './pages/error/error.component';
 import { ErrorService } from './services/error.service';
+import { AlertModule } from './fragments/alert/alert.module';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ErrorService } from './services/error.service';
     NgbModule,
     FormsModule, //necessario para obter os dados de formularios
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AlertModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
