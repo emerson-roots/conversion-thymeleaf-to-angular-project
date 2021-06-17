@@ -2,6 +2,7 @@ import { AlertService } from './../../../fragments/alert/alert.service';
 import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
 import { DepartamentoService } from './../../../services/departamento.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-departamento-lista',
@@ -14,7 +15,8 @@ export class DepartamentoListaComponent implements OnInit {
 
   constructor(
     public dptoService: DepartamentoService,
-    public alertService: AlertService) { }
+    public alertService: AlertService,
+    public router: Router) { }
 
   ngOnInit(): void {
     this.dptoService.findAll()
@@ -34,6 +36,10 @@ export class DepartamentoListaComponent implements OnInit {
     },error =>{
       this.alertService.error("Ocorreu um erro ao excluir o departamento: " + JSON.stringify(error.message))
     });
+  }
+
+  edit(id: any){
+    this.router.navigate(['departamentos/editar', id])
   }
 
 }

@@ -13,6 +13,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'departamentos/cadastrar', component: DepartamentoCadastroComponent},
   {path: 'departamentos/listar', component: DepartamentoListaComponent},
+  {path: 'departamentos/editar/:id', component: DepartamentoCadastroComponent},
   {path: 'cargos/cadastrar', component: CargoCadastroComponent},
   {path: 'cargos/listar', component: CargoListaComponent},
   {path: 'funcionarios/cadastrar', component: FuncionarioCadastroComponent},

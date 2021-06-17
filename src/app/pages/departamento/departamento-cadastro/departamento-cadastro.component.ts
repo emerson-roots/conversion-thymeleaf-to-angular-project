@@ -1,9 +1,10 @@
 import { ErrorService } from './../../../services/error.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DepartamentoService } from './../../../services/departamento.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/fragments/alert/alert.service';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-departamento-cadastro',
@@ -21,6 +22,7 @@ export class DepartamentoCadastroComponent implements OnInit {
 
   constructor(
     public router: Router,
+    public actvantedRouter: ActivatedRoute,
     public departamentoService: DepartamentoService,
     public errorService: ErrorService,
     public formBuilder: FormBuilder,
@@ -29,12 +31,30 @@ export class DepartamentoCadastroComponent implements OnInit {
     //instancia formulario
     this.formGroup = this.formBuilder.group({
       //cria os campos e ja insere um valor padrao ao input HTML (é possivel predefinir valores iniciais)
-      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]]
+      id: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(60)]]
     })
   }
 
   ngOnInit(): void {
 
+    /**pre carrega os dados selecionado para edicao na lista de departamentos */
+    this.actvantedRouter.params
+      .pipe(
+        map((params: any) => params['id']),
+        switchMap(id => this.departamentoService.loadById(id)) //switchMap - a partir de um observable chamar outro observable pode ser utilizado switchMap
+        // switchMap(id => obterCargosRelacionados) exemplo para captar relacionamentos
+        )
+      .subscribe(departamentoDto => this.updateForm(departamentoDto));
+
+  }
+
+  /** carrega dados no formulario para edicao */
+  updateForm(dptoDto: any) {
+    this.formGroup.patchValue({
+      id: dptoDto.id,
+      nome: dptoDto.nome
+    });
   }
 
   salvar() {

@@ -37,7 +37,7 @@
                             <td>{{ dptos.id }}</td>
                             <td>{{ dptos.nome }}</td>
                             <td colspan="2">
-                                <a class="btn btn-info btn-sm" href="/departamentos/editar/3" role="button">
+                                <a class="btn btn-info btn-sm" (click)="edit(dptos.id)" role="button">
                                     <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
                                 </a>
                                 <button id="btn_departamentos/excluir/3" (click)="delete(dptos.id)" type="button" class="btn btn-danger btn-sm">
