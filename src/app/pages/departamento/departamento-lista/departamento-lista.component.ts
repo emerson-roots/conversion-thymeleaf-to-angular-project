@@ -1,3 +1,4 @@
+import { AlertService } from './../../../fragments/alert/alert.service';
 import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
 import { DepartamentoService } from './../../../services/departamento.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,8 @@ export class DepartamentoListaComponent implements OnInit {
   departamentosDTO!: DepartamentoDTO[];
 
   constructor(
-    public dptoService: DepartamentoService) { }
+    public dptoService: DepartamentoService,
+    public alertService: AlertService) { }
 
   ngOnInit(): void {
     this.dptoService.findAll()
@@ -23,6 +25,15 @@ export class DepartamentoListaComponent implements OnInit {
           /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
            posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
         });
+  }
+
+  delete(id: any){
+    this.dptoService.delete(id)
+      .subscribe(()=>{
+        this.alertService.success("Departamento excluído com sucesso!")
+    },error =>{
+      this.alertService.error("Ocorreu um erro ao excluir o departamento: " + JSON.stringify(error.message))
+    });
   }
 
 }

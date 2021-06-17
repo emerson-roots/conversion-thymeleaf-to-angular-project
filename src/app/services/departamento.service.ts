@@ -25,4 +25,8 @@ export class DepartamentoService {
   findAll(): Observable<DepartamentoDTO[]> {
     return this.http.get<DepartamentoDTO[]>(`${API_CONFIG.baseUrl}/departamentos`);
   }
+
+  delete(id: any) {
+    return this.http.delete(`${API_CONFIG.baseUrl}/departamentos/${id}`);
+  }
 }

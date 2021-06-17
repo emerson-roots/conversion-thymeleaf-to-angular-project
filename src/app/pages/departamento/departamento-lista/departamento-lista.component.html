@@ -22,7 +22,7 @@
         </nav>
 
         <div class="container" id="listagem">
-
+            <alert></alert>
             <div class="table-responsive">
                 <table class="table table-striped table-hover table-sm">
                     <thead>
@@ -40,7 +40,7 @@
                                 <a class="btn btn-info btn-sm" href="/departamentos/editar/3" role="button">
                                     <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
                                 </a>
-                                <button id="btn_departamentos/excluir/3" type="button" class="btn btn-danger btn-sm">
+                                <button id="btn_departamentos/excluir/3" (click)="delete(dptos.id)" type="button" class="btn btn-danger btn-sm">
                                     <span class="oi oi-circle-x" title="Exclusão desabilitada"
                                         aria-hidden="true"></span>
                                 </button>
