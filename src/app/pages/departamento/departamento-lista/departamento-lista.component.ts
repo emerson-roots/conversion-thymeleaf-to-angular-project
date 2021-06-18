@@ -19,20 +19,26 @@ export class DepartamentoListaComponent implements OnInit {
     public router: Router) { }
 
   ngOnInit(): void {
+    this.findAll();
+  }
+
+  findAll(){
     this.dptoService.findAll()
-      .subscribe(response => {
-        this.departamentosDTO = response
-      },
-        error => {
-          /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
-           posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
-        });
+    .subscribe(response => {
+      this.departamentosDTO = response
+    },
+      error => {
+        /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
+         posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
+         this.alertService.error("Ocorreu um erro ao listar os departamentos.")
+      });
   }
 
   delete(id: any){
     this.dptoService.delete(id)
       .subscribe(()=>{
         this.alertService.success("Departamento excluído com sucesso!")
+        this.findAll();
     },error =>{
       this.alertService.error("Ocorreu um erro ao excluir o departamento: " + JSON.stringify(error.message))
     });

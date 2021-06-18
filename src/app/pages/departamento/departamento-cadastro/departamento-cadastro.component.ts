@@ -1,3 +1,4 @@
+import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
 import { ErrorService } from './../../../services/error.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DepartamentoService } from './../../../services/departamento.service';
@@ -44,7 +45,7 @@ export class DepartamentoCadastroComponent implements OnInit {
         map((params: any) => params['id']),
         switchMap(id => this.departamentoService.loadById(id)) //switchMap - a partir de um observable chamar outro observable pode ser utilizado switchMap
         // switchMap(id => obterCargosRelacionados) exemplo para captar relacionamentos
-        )
+      )
       .subscribe(departamentoDto => this.updateForm(departamentoDto));
 
   }
@@ -58,11 +59,19 @@ export class DepartamentoCadastroComponent implements OnInit {
   }
 
   salvar() {
-    this.departamentoService.insert(this.formGroup.value)
+
+    let dptoDTO: DepartamentoDTO = this.formGroup.value;
+
+    this.departamentoService.save(this.formGroup.value)
       .subscribe(response => {
 
-        //chama o serviço de alert... segundo parametro é opcional
-        this.alertService.success(`Departamento ${JSON.stringify(this.formGroup.controls.nome.value)} cadastrado com sucesso!`)
+        if (dptoDTO.id == null) {
+          //chama o serviço de alert... segundo parametro é opcional
+          this.alertService.success(`Departamento ${JSON.stringify(this.formGroup.controls.nome.value)} cadastrado com sucesso!`)
+        } else {
+          this.alertService.success(`Departamento ${JSON.stringify(this.formGroup.controls.nome.value)} editado com sucesso!`)
+        }
+
         //limpa formulario
         this.formGroup.reset()
 
