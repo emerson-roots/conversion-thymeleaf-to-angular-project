@@ -8,17 +8,23 @@ import { DepartamentoListaComponent } from './pages/departamento/departamento-li
 import { FuncionarioCadastroComponent } from './pages/funcionario/funcionario-cadastro/funcionario-cadastro.component';
 import { FuncionarioListaComponent } from './pages/funcionario/funcionario-lista/funcionario-lista.component';
 import { HomeComponent } from './pages/home/home.component';
+import { DepartamentoResolver } from './guards/departamento-resolver'
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'departamentos/cadastrar', component: DepartamentoCadastroComponent},
-  {path: 'departamentos/listar', component: DepartamentoListaComponent},
-  {path: 'departamentos/editar/:id', component: DepartamentoCadastroComponent},
-  {path: 'cargos/cadastrar', component: CargoCadastroComponent},
-  {path: 'cargos/listar', component: CargoListaComponent},
-  {path: 'funcionarios/cadastrar', component: FuncionarioCadastroComponent},
-  {path: 'funcionarios/listar', component: FuncionarioListaComponent},
-  {path: 'error', component: ErrorComponent},
+  { path: '', component: HomeComponent },
+  { path: 'departamentos/cadastrar', component: DepartamentoCadastroComponent },
+  { path: 'departamentos/listar', component: DepartamentoListaComponent },
+  {
+    path: 'departamentos/editar/:id', component: DepartamentoCadastroComponent,
+    resolve: {
+      departamentoDTO: DepartamentoResolver
+    }
+  },
+  { path: 'cargos/cadastrar', component: CargoCadastroComponent },
+  { path: 'cargos/listar', component: CargoListaComponent },
+  { path: 'funcionarios/cadastrar', component: FuncionarioCadastroComponent },
+  { path: 'funcionarios/listar', component: FuncionarioListaComponent },
+  { path: 'error', component: ErrorComponent },
 ];
 
 @NgModule({

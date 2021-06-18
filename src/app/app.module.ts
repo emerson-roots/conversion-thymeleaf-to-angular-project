@@ -26,6 +26,7 @@ import { ErrorInterceptorProvider } from './interceptors/error-interceptor';
 import { ErrorComponent } from './pages/error/error.component';
 import { ErrorService } from './services/error.service';
 import { AlertModule } from './fragments/alert/alert.module';
+import { DepartamentoResolver } from './guards/departamento-resolver';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { AlertModule } from './fragments/alert/alert.module';
     SidebarService,
     DepartamentoService,
     ErrorInterceptorProvider,
-    ErrorService
+    ErrorService,
+    DepartamentoResolver
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

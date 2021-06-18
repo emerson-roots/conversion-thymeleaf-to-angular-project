@@ -5,7 +5,7 @@ import { DepartamentoService } from './../../../services/departamento.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/fragments/alert/alert.service';
-import { map, switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-departamento-cadastro',
@@ -20,7 +20,8 @@ export class DepartamentoCadastroComponent implements OnInit {
   };
 
   formGroup: FormGroup;
-
+  inscricao!: Subscription
+  dptoDTO!: DepartamentoDTO;
   constructor(
     public router: Router,
     public actvantedRouter: ActivatedRoute,
@@ -39,15 +40,28 @@ export class DepartamentoCadastroComponent implements OnInit {
 
   ngOnInit(): void {
 
-    /**pre carrega os dados selecionado para edicao na lista de departamentos */
-    this.actvantedRouter.params
-      .pipe(
-        map((params: any) => params['id']),
-        switchMap(id => this.departamentoService.loadById(id)) //switchMap - a partir de um observable chamar outro observable pode ser utilizado switchMap
-        // switchMap(id => obterCargosRelacionados) exemplo para captar relacionamentos
-      )
-      .subscribe(departamentoDto => this.updateForm(departamentoDto));
+    this.preEdit();
 
+  }
+
+  preEdit(){
+
+    let qtdparamsRecebidos = this.actvantedRouter.snapshot.paramMap.getAll('id').length;
+
+    //somente carrega dados no forma para editar
+    //se nao vier parametros ID
+    if(qtdparamsRecebidos != 0){
+    /**
+     * https://www.youtube.com/watch?v=AEUSrpsAPtw
+     * trexo implementado com base no video Loiane Groner
+     */
+      this.inscricao = this.actvantedRouter.data.subscribe(
+        (dpto) => {
+          this.dptoDTO = dpto.departamentoDTO;
+          this.updateForm(this.dptoDTO)
+        }
+      );
+    }
   }
 
   /** carrega dados no formulario para edicao */
