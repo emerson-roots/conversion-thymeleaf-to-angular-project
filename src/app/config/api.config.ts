@@ -6,6 +6,6 @@ export const API_CONFIG = {
 
 export const Departamentos_API = {
 
-  baseUrl: `${API_CONFIG.baseUrl}/departamentos`
+  baseUrl: `${API_CONFIG.baseUrl}/department`
 
 }

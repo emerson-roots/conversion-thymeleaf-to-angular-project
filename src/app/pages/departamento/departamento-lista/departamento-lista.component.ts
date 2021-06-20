@@ -1,3 +1,4 @@
+import { ErrorService } from './../../../services/error.service';
 import { AlertService } from './../../../fragments/alert/alert.service';
 import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
 import { DepartamentoService } from './../../../services/departamento.service';
@@ -15,6 +16,7 @@ export class DepartamentoListaComponent implements OnInit {
 
   constructor(
     public dptoService: DepartamentoService,
+    public errorService: ErrorService,
     public alertService: AlertService,
     public router: Router) { }
 
@@ -22,29 +24,29 @@ export class DepartamentoListaComponent implements OnInit {
     this.findAll();
   }
 
-  findAll(){
+  findAll() {
     this.dptoService.findAll()
-    .subscribe(response => {
-      this.departamentosDTO = response
-    },
-      error => {
-        /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
-         posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
-         this.alertService.error("Ocorreu um erro ao listar os departamentos.")
+      .subscribe(response => {
+        this.departamentosDTO = response
+      },
+        error => {
+          /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
+           posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
+          this.errorService.errorAlert(error, "Ocorreu um erro ao listar os departamentos.")
+        });
+  }
+
+  delete(id: any) {
+    this.dptoService.delete(id)
+      .subscribe(() => {
+        this.alertService.success("Departamento excluído com sucesso!")
+        this.findAll();
+      }, error => {
+        this.errorService.errorAlert(error, "Ocorreu um erro ao excluir o departamento.")
       });
   }
 
-  delete(id: any){
-    this.dptoService.delete(id)
-      .subscribe(()=>{
-        this.alertService.success("Departamento excluído com sucesso!")
-        this.findAll();
-    },error =>{
-      this.alertService.error("Ocorreu um erro ao excluir o departamento: " + JSON.stringify(error.message))
-    });
-  }
-
-  edit(id: any){
+  edit(id: any) {
     this.router.navigate(['departamentos/editar', id])
   }
 

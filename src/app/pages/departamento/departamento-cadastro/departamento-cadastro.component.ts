@@ -14,11 +14,6 @@ import { Subscription } from 'rxjs/Rx';
 })
 export class DepartamentoCadastroComponent implements OnInit {
 
-  options = {
-    autoClose: true,
-    keepAfterRouteChange: false
-  };
-
   formGroup: FormGroup;
   inscricao!: Subscription
   dptoDTO!: DepartamentoDTO;
@@ -90,11 +85,7 @@ export class DepartamentoCadastroComponent implements OnInit {
         this.formGroup.reset()
 
       }, error => {
-
-        this.errorService.goToPageError(error);
-
-        this.router.navigate(['error']);
-
+        this.errorService.errorAlert(error, "Ocorreu um erro ao tentar inserir departamento.")
       });
   }
 }

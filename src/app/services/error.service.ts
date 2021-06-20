@@ -1,17 +1,34 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AlertService } from './../fragments/alert/alert.service';
 import { ErrorFields } from './../config/error.fields';
 import { Injectable } from "@angular/core";
-import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ErrorService {
 
-  erro!: ErrorFields;
+  errorFields!: ErrorFields;
 
-  constructor() {}
+  optionsAlert = {
+    autoClose: false,
+    keepAfterRouteChange: false
+  };
 
-  goToPageError(error?: any): ErrorFields{
-    this.erro = new ErrorFields(error.timestamp, error.error, error.message, error.status)
-    return this.erro;
+  constructor(private alertService: AlertService,
+    private router: Router) { }
+
+  errorAlert(erro: any, message: string) {
+    this.errorFields = erro;
+    this.alertService.error(message
+      + " | Erro: " + this.errorFields.error
+      + " | Status: " + this.errorFields.status
+      + " | Mensagem: " + this.errorFields.message,
+      this.optionsAlert);
   }
+
+  errorPage(erro: any) {
+    this.errorFields = erro;
+    // skipLocationChange faz com que a URL não seja alterada ao redirecionar
+    this.router.navigate(['error'], { skipLocationChange: true });
+  }
+
 }

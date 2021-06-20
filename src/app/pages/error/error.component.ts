@@ -2,7 +2,7 @@ import { ErrorFields } from './../../config/error.fields';
 import { ErrorService } from './../../services/error.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -12,14 +12,17 @@ import { Router } from '@angular/router';
 })
 export class ErrorComponent implements OnInit {
 
-  erroFields!: ErrorFields;
+  erroFields: ErrorFields = {
+    error: '',
+    message: '',
+    status: 0,
+    timestamp: 0,
+  };
 
   constructor(public erroService: ErrorService) { }
 
   ngOnInit(): void {
-
-    this.erroFields = this.erroService.erro;
-
+    this.erroFields = this.erroService.errorFields;
   }
 
 }
