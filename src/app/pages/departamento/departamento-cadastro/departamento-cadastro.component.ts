@@ -39,17 +39,17 @@ export class DepartamentoCadastroComponent implements OnInit {
 
   }
 
-  preEdit(){
+  preEdit() {
 
     let qtdparamsRecebidos = this.actvantedRouter.snapshot.paramMap.getAll('id').length;
 
     //somente carrega dados no forma para editar
     //se nao vier parametros ID
-    if(qtdparamsRecebidos != 0){
-    /**
-     * https://www.youtube.com/watch?v=AEUSrpsAPtw
-     * trexo implementado com base no video Loiane Groner
-     */
+    if (qtdparamsRecebidos != 0) {
+      /**
+       * https://www.youtube.com/watch?v=AEUSrpsAPtw
+       * trexo implementado com base no video Loiane Groner
+       */
       this.inscricao = this.actvantedRouter.data.subscribe(
         (dpto) => {
           this.dptoDTO = dpto.departamentoDTO;
@@ -68,24 +68,47 @@ export class DepartamentoCadastroComponent implements OnInit {
   }
 
   salvar() {
+    if (!this.formGroup.invalid) {
+      let dptoDTO: DepartamentoDTO = this.formGroup.value;
 
-    let dptoDTO: DepartamentoDTO = this.formGroup.value;
+      this.departamentoService.save(this.formGroup.value)
+        .subscribe(response => {
 
-    this.departamentoService.save(this.formGroup.value)
-      .subscribe(response => {
+          if (dptoDTO.id == null) {
+            //chama o serviço de alert... segundo parametro é opcional
+            this.alertService.success(`Departamento ${JSON.stringify(this.formGroup.controls.nome.value)} cadastrado com sucesso!`)
+          } else {
+            this.alertService.success(`Departamento ${JSON.stringify(this.formGroup.controls.nome.value)} editado com sucesso!`)
+          }
 
-        if (dptoDTO.id == null) {
-          //chama o serviço de alert... segundo parametro é opcional
-          this.alertService.success(`Departamento ${JSON.stringify(this.formGroup.controls.nome.value)} cadastrado com sucesso!`)
-        } else {
-          this.alertService.success(`Departamento ${JSON.stringify(this.formGroup.controls.nome.value)} editado com sucesso!`)
+          //limpa formulario
+          this.formGroup.reset()
+
+        }, error => {
+          this.errorService.errorAlert(error, "Ocorreu um erro ao tentar inserir departamento.")
+        });
+    } else {
+      this.marcaCampoComoModificado(this.formGroup);
+    }
+  }
+
+
+  // itera os campos do formulario marcando cada um
+  // como "dirty", ou seja, modificado/sujo/alterado
+  marcaCampoComoModificado(form: FormGroup) {
+
+    Object.keys(form.controls)
+      .forEach(campoIterado => {
+
+        const controle = form.get(campoIterado);
+
+        // verifica se campo está invalido
+        // e marca como modificado/sujo
+        if (controle?.invalid) {
+          controle?.markAsDirty();
         }
 
-        //limpa formulario
-        this.formGroup.reset()
-
-      }, error => {
-        this.errorService.errorAlert(error, "Ocorreu um erro ao tentar inserir departamento.")
       });
+
   }
 }

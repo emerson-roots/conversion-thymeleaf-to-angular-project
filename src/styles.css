@@ -24,11 +24,16 @@ body {
 }
 
 
-/* paragrafo de validação dos inputs */
+/* paragrafo de validação dos inputs e border em input invalido */
 
 .danger {
+    font-size: small;
     color: red;
     margin-bottom: 0px;
+}
+
+.input-error.ng-touched.ng-dirty {
+    border: red 1px solid;
 }
 
 
