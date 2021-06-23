@@ -4,6 +4,7 @@ import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
 import { DepartamentoService } from './../../../services/departamento.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfirmationDialogService } from 'src/app/utils/confirmation-dialog/confirmation-dialog.service';
 
 @Component({
   selector: 'app-departamento-lista',
@@ -18,10 +19,24 @@ export class DepartamentoListaComponent implements OnInit {
     public dptoService: DepartamentoService,
     public errorService: ErrorService,
     public alertService: AlertService,
-    public router: Router) { }
+    public router: Router,
+    private confirmationDialogService: ConfirmationDialogService) { }
 
   ngOnInit(): void {
     this.findAll();
+  }
+
+  openConfirmationDialog(id: any) {
+    this.confirmationDialogService.confirm('Confirmação de exclusão', 'Deseja confirmar a exclusão do item selecionado?')
+      .then((confirmed) => {
+
+        if (confirmed) {
+          this.delete(id)
+        }
+
+      }).catch((error) =>
+        this.errorService.errorAlert(error, "Erro ao confirmar exclusão de Departamento.")
+      );
   }
 
   findAll() {
