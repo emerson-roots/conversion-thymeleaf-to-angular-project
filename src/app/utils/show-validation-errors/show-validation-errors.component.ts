@@ -12,8 +12,8 @@ export class ShowValidationErrorsComponent implements OnInit {
   ERROR_MESSAGE: any = {
     required: () => `É obrigatório!`,
     minlength: (par: { requiredLength: any }) => `Mínimo ${par.requiredLength} caracteres!`,
-    maxlength: (par: { requiredLength: any }) =>
-      `Máximo ${par.requiredLength} caracteres!`
+    maxlength: (par: { requiredLength: any }) => `Máximo ${par.requiredLength} caracteres!`,
+    pattern: () => `Campo esta vazio/em branco!`
   };
 
   constructor() { }

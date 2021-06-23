@@ -17,6 +17,7 @@ export class DepartamentoCadastroComponent implements OnInit {
   formGroup: FormGroup;
   inscricao!: Subscription
   dptoDTO!: DepartamentoDTO;
+
   constructor(
     public router: Router,
     public actvantedRouter: ActivatedRoute,
@@ -25,11 +26,14 @@ export class DepartamentoCadastroComponent implements OnInit {
     public formBuilder: FormBuilder,
     public alertService: AlertService) {
 
+    // set pattern not blank on validation
+    const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
+
     //instancia formulario
     this.formGroup = this.formBuilder.group({
       //cria os campos e ja insere um valor padrao ao input HTML (é possivel predefinir valores iniciais)
       id: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]]
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern(nonWhitespaceRegExp)]]
     })
   }
 
