@@ -1,0 +1,5 @@
+<div *ngIf="shouldShowErrors()">
+    <span class="danger" margin-left *ngFor="let error of listOfErrors()">
+      {{ error }}
+  </span>
+</div>

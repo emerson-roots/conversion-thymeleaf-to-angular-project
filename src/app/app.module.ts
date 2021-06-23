@@ -27,6 +27,7 @@ import { ErrorComponent } from './pages/error/error.component';
 import { ErrorService } from './services/error.service';
 import { AlertModule } from './fragments/alert/alert.module';
 import { DepartamentoResolver } from './guards/departamento-resolver';
+import { ShowValidationErrorsComponent } from './utils/show-validation-errors/show-validation-errors.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { DepartamentoResolver } from './guards/departamento-resolver';
     HeaderComponent,
     SidebarComponent,
     HomeComponent,
-    ErrorComponent
+    ErrorComponent,
+    ShowValidationErrorsComponent
   ],
   imports: [
     BrowserModule,

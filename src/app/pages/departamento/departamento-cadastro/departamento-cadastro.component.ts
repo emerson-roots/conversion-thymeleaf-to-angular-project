@@ -29,7 +29,7 @@ export class DepartamentoCadastroComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       //cria os campos e ja insere um valor padrao ao input HTML (é possivel predefinir valores iniciais)
       id: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(60)]]
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]]
     })
   }
 
@@ -94,7 +94,7 @@ export class DepartamentoCadastroComponent implements OnInit {
 
 
   // itera os campos do formulario marcando cada um
-  // como "dirty", ou seja, modificado/sujo/alterado
+  // como "dirty", ou seja, modificado/sujo/alterado/tocado
   marcaCampoComoModificado(form: FormGroup) {
 
     Object.keys(form.controls)
@@ -103,11 +103,9 @@ export class DepartamentoCadastroComponent implements OnInit {
         const controle = form.get(campoIterado);
 
         // verifica se campo está invalido
-        // e marca como modificado/sujo
-        if (controle?.invalid) {
-          controle?.markAsDirty();
-        }
-
+        // e marca como modificado/sujo/tocado
+        controle?.markAsDirty();
+        controle?.markAsTouched();
       });
 
   }

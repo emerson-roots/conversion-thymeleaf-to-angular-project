@@ -27,8 +27,9 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nome">Departamento</label>
-                        <input [ngClass]="{'input-error': formGroup.controls.nome.invalid}" type="text" class="form-control" id="nome" placeholder="Nome Departamento" autofocus="autofocus" formControlName="nome" value="" />
-                        <p class="danger" *ngIf="formGroup.controls.nome.dirty && formGroup.controls.nome.errors" margin-left>Valor inválido</p>
+                        <input [ngClass]="{'input-error': formGroup.controls.nome.invalid}" type="text" class="form-control" id="nome" placeholder="Nome Departamento" formControlName="nome" value="" />
+                        <!-- validation messages -->
+                        <app-show-validation-errors [formCtrl]="formGroup.get('nome')"></app-show-validation-errors>
                     </div>
                 </div>
                 <input type="hidden" id="id" name="id" value="" />
