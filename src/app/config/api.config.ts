@@ -9,3 +9,9 @@ export const Departamentos_API = {
   baseUrl: `${API_CONFIG.baseUrl}/department`
 
 }
+
+export const Cargos_API = {
+
+  baseUrl: `${API_CONFIG.baseUrl}/office`
+
+}

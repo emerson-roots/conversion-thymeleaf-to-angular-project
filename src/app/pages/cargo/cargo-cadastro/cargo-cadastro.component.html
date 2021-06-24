@@ -22,26 +22,25 @@
         </nav>
 
         <div class="container" id="cadastro">
-            <form action="/cargos/salvar" method="POST">
+            <!-- alert -->
+            <alert></alert>
+
+            <form [formGroup]="formGroup">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nome">Nome do Cargo</label>
-                        <input type="text" class="form-control" id="nome" placeholder="Nome Cargo" autofocus="autofocus"
-                            name="nome" value="" />
+                        <input formControlName="nome" type="text" class="form-control" id="nome" placeholder="Nome Cargo" autofocus="autofocus" name="nome" value="" />
                     </div>
                     <div class="form-group col-md-4">
                         <label for="departamento">Departamento</label>
-                        <select id="departamento" class="form-control" name="departamento">
-                            <option value="">Selecione</option>
-                            <option value="3">Administração</option>
-                            <option value="2">Contabilidade</option>
-                            <option value="1">Recursos Humanos</option>
-                            <option value="4">Tecnologia da Informação</option>
+                        <select formControlName="departamento" [compareWith]="compararDepartamentos" id="departamento" class="form-control" name="departamento">
+                            <option value="" >Selecione...</option>
+                            <option *ngFor="let dptos of dptosDTO" [ngValue]="dptos">{{ dptos.nome }}</option>
                         </select>
                     </div>
                 </div>
                 <input type="hidden" id="id" name="id" value="" />
-                <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+                <button type="submit" class="btn btn-primary btn-sm" (click)="salvar()">Salvar</button>
             </form>
         </div>
     </section>
