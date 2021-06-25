@@ -30,6 +30,7 @@ import { AlertModule } from './fragments/alert/alert.module';
 import { DepartamentoResolver } from './guards/departamento-resolver';
 import { ShowValidationErrorsComponent } from './utils/show-validation-errors/show-validation-errors.component';
 import { CargoService } from './services/cargo.service';
+import { FuncionarioService } from './services/funcionario.service';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { CargoService } from './services/cargo.service';
     ErrorService,
     DepartamentoResolver,
     CargoService,
-    CargoResolverGuard
+    CargoResolverGuard,
+    FuncionarioService
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

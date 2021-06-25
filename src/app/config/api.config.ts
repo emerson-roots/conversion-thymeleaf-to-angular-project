@@ -15,3 +15,9 @@ export const Cargos_API = {
   baseUrl: `${API_CONFIG.baseUrl}/office`
 
 }
+
+export const Funcionarios_API = {
+
+  baseUrl: `${API_CONFIG.baseUrl}/employee`
+
+}
