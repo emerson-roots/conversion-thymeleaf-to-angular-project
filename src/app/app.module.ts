@@ -1,4 +1,5 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CargoResolverGuard } from './guards/cargo-resolver.guard';
+import { HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -72,7 +73,8 @@ import { CargoService } from './services/cargo.service';
     ErrorInterceptorProvider,
     ErrorService,
     DepartamentoResolver,
-    CargoService
+    CargoService,
+    CargoResolverGuard
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { DepartamentoService } from './../../../services/departamento.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,6 +7,7 @@ import { CargoDTO } from 'src/app/model/dto/cargo.dto';
 import { CargoService } from 'src/app/services/cargo.service';
 import { ErrorService } from 'src/app/services/error.service';
 import { DepartamentoDTO } from 'src/app/model/dto/departamento.dto';
+import { Subscription } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-cargo-cadastro',
@@ -17,13 +19,15 @@ export class CargoCadastroComponent implements OnInit {
   formGroup: FormGroup;
   cargoDTO!: CargoDTO;
   dptosDTO!: DepartamentoDTO[];
+  inscricao!: Subscription
 
   constructor(
     public cargoService: CargoService,
     public dptoService: DepartamentoService,
     public errorService: ErrorService,
     public formBuilder: FormBuilder,
-    public alertService: AlertService) {
+    public alertService: AlertService,
+    public activatedRouter: ActivatedRoute) {
 
     // set pattern not blank on validation
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
@@ -43,6 +47,7 @@ export class CargoCadastroComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.preEdit();
   }
 
   salvar() {
@@ -66,9 +71,41 @@ export class CargoCadastroComponent implements OnInit {
           this.errorService.errorAlert(error, "Ocorreu um erro ao tentar inserir departamento.")
         });
     } else {
-      // logica de update aqui
+      // logica VALIDACAO aqui
     }
   }
+
+  preEdit(){
+
+    let qtdparamsRecebidos = this.activatedRouter.snapshot.paramMap.getAll('id').length;
+
+    //somente carrega dados no forma para editar
+    //se nao vier parametros ID
+    if(qtdparamsRecebidos != 0){
+    /**
+     * https://www.youtube.com/watch?v=AEUSrpsAPtw
+     * trecho implementado com base no video Loiane Groner
+     */
+      this.inscricao = this.activatedRouter.data.subscribe(
+        (cargo) => {
+          // o atributo "cargoResolver" esta ligado diretamente com o
+          // parametro setado no "app-routing.module.ts"
+          this.cargoDTO = cargo.cargoResolver;
+          this.updateForm(this.cargoDTO)
+        }
+      );
+    }
+  }
+
+    /** carrega dados no formulario para edicao */
+    updateForm(cargoDto: CargoDTO) {
+      this.formGroup.patchValue({
+        id: cargoDto.id,
+        nome: cargoDto.nome,
+        departamento: cargoDto.departamento
+
+      });
+    }
 
   // lista departamentos para popular combobox
   listaDepartamentos() {

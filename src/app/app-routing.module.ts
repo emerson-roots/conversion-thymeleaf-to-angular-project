@@ -1,3 +1,4 @@
+import { CargoResolverGuard } from './guards/cargo-resolver.guard';
 import { ErrorComponent } from './pages/error/error.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -22,6 +23,14 @@ const routes: Routes = [
   },
   { path: 'cargos/cadastrar', component: CargoCadastroComponent },
   { path: 'cargos/listar', component: CargoListaComponent },
+  {
+    path: 'cargos/editar/:id', component: CargoCadastroComponent,
+    resolve: {
+      // o atributo "cargoResolver" esta ligado diretamente
+      // com o atributo setado no metodo "preEdit" do cargo-cadastro.component
+      cargoResolver: CargoResolverGuard
+    }
+  },
   { path: 'funcionarios/cadastrar', component: FuncionarioCadastroComponent },
   { path: 'funcionarios/listar', component: FuncionarioListaComponent },
   { path: 'error', component: ErrorComponent },

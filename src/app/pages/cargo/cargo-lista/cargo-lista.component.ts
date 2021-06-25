@@ -61,4 +61,8 @@ export class CargoListaComponent implements OnInit {
       );
   }
 
+  edit(id: number) {
+    this.router.navigate(['cargos/editar', id])
+  }
+
 }

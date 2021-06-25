@@ -41,7 +41,7 @@
                             <td>{{ cargos.nome }}</td>
                             <td>{{ cargos.departamento.nome }}</td>
                             <td colspan="2">
-                                <a class="btn btn-info btn-sm" href="/cargos/editar/1" role="button">
+                                <a class="btn btn-info btn-sm" (click)="edit(cargos.id)" role="button">
                                     <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
                                 </a>
                                 <button (click)="openConfirmationDialog( cargos.id )" type="button" class="btn btn-danger btn-sm">
