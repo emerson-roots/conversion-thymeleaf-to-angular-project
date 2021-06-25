@@ -29,14 +29,18 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nome">Nome do Cargo</label>
-                        <input formControlName="nome" type="text" class="form-control" id="nome" placeholder="Nome Cargo" autofocus="autofocus" name="nome" value="" />
+                        <input [ngClass]="{'input-error': formGroup.controls.nome.invalid}" formControlName="nome" type="text" class="form-control" id="nome" placeholder="Nome Cargo" name="nome" value="" />
+                        <!-- validation messages -->
+                        <app-show-validation-errors [formCtrl]="formGroup.get('nome')"></app-show-validation-errors>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="departamento">Departamento</label>
-                        <select formControlName="departamento" [compareWith]="compararDepartamentos" id="departamento" class="form-control" name="departamento">
-                            <option value="" >Selecione...</option>
+                        <select [ngClass]="{'input-error': formGroup.controls.departamento.invalid}" formControlName="departamento" [compareWith]="compararDepartamentos" id="departamento" class="form-control" name="departamento">
+                            <option value="">Selecione...</option>
                             <option *ngFor="let dptos of dptosDTO" [ngValue]="dptos">{{ dptos.nome }}</option>
                         </select>
+                        <!-- validation messages -->
+                        <app-show-validation-errors [formCtrl]="formGroup.get('departamento')"></app-show-validation-errors>
                     </div>
                 </div>
                 <input type="hidden" id="id" name="id" value="" />

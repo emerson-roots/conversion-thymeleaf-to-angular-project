@@ -32,21 +32,19 @@ export class CargoCadastroComponent implements OnInit {
     // set pattern not blank on validation
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
 
-
-
     //instancia formulario
     this.formGroup = this.formBuilder.group({
       //cria os campos e ja insere um valor padrao ao input HTML (é possivel predefinir valores iniciais)
       id: [null],
-      nome: [null, [Validators.required, Validators.maxLength(60), Validators.pattern(nonWhitespaceRegExp)]],
-      departamento: {
-        id: [null],
-        nome: [this.listaDepartamentos(), [Validators.required]]
-      }
-    })
+      nome: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern(nonWhitespaceRegExp)]],
+      departamento: ['', [Validators.required]]
+    }
+    );
   }
 
   ngOnInit(): void {
+    // popula objeto para dropdown/combobox
+    this.listaDepartamentos();
     this.preEdit();
   }
 
@@ -68,24 +66,40 @@ export class CargoCadastroComponent implements OnInit {
           this.formGroup.reset()
 
         }, error => {
-          this.errorService.errorAlert(error, "Ocorreu um erro ao tentar inserir departamento.")
+          this.errorService.errorAlert(error, "Ocorreu um erro ao tentar inserir Cargo.")
         });
     } else {
-      // logica VALIDACAO aqui
+      this.marcaCampoComoModificado(this.formGroup);
     }
   }
 
-  preEdit(){
+  marcaCampoComoModificado(form: FormGroup) {
+
+    Object.keys(form.controls)
+      .forEach(campoIterado => {
+
+        const controle = form.get(campoIterado);
+
+        // verifica se campo está invalido
+        // e marca como modificado/sujo/tocado
+        controle?.markAsDirty();
+        controle?.markAsTouched();
+
+      });
+
+  }
+
+  preEdit() {
 
     let qtdparamsRecebidos = this.activatedRouter.snapshot.paramMap.getAll('id').length;
 
     //somente carrega dados no forma para editar
     //se nao vier parametros ID
-    if(qtdparamsRecebidos != 0){
-    /**
-     * https://www.youtube.com/watch?v=AEUSrpsAPtw
-     * trecho implementado com base no video Loiane Groner
-     */
+    if (qtdparamsRecebidos != 0) {
+      /**
+       * https://www.youtube.com/watch?v=AEUSrpsAPtw
+       * trecho implementado com base no video Loiane Groner
+       */
       this.inscricao = this.activatedRouter.data.subscribe(
         (cargo) => {
           // o atributo "cargoResolver" esta ligado diretamente com o
@@ -97,15 +111,14 @@ export class CargoCadastroComponent implements OnInit {
     }
   }
 
-    /** carrega dados no formulario para edicao */
-    updateForm(cargoDto: CargoDTO) {
-      this.formGroup.patchValue({
-        id: cargoDto.id,
-        nome: cargoDto.nome,
-        departamento: cargoDto.departamento
-
-      });
-    }
+  /** carrega dados no formulario para edicao */
+  updateForm(cargoDto: CargoDTO) {
+    this.formGroup.patchValue({
+      id: cargoDto.id,
+      nome: cargoDto.nome,
+      departamento: cargoDto.departamento
+    });
+  }
 
   // lista departamentos para popular combobox
   listaDepartamentos() {
