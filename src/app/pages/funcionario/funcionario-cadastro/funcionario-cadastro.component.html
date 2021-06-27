@@ -23,146 +23,80 @@
         </div>
 
         <div class="container" id="cadastro">
-            <form action="/funcionarios/salvar" method="POST">
+            <!-- alert -->
+            <alert></alert>
+            <form [formGroup]="formGroup">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nome">Nome do Funcionário</label>
-                        <input type="text" class="form-control" id="nome" placeholder="Nome Completo" autofocus="autofocus" name="nome" value="" />
-                        <div class="invalid-feedback">
-
-                        </div>
+                        <input formControlName="nome" type="text" class="form-control" id="nome" placeholder="Nome Completo" autofocus="autofocus" name="nome" value="" />
                     </div>
                     <div class="form-group col-md-6">
                         <label for="salario">Salário Bruto</label>
-                        <input type="text" class="form-control" id="salario" mask="separator.2" thousandSeparator="." name="salario" value="" placeholder="0.000.000,00" />
-                        <div class="invalid-feedback">
-
-                        </div>
+                        <input formControlName="salario" type="text" class="form-control" id="salario" mask="0*.00" thousandSeparator="." name="salario" value="" placeholder="0.000.000,00" />
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="dataEntrada">Data de Entrada</label>
-                        <input type="date" class="form-control" id="dataEntrada" name="dataEntrada" value="" />
-                        <div class="invalid-feedback">
-
-                        </div>
+                        <input formControlName="dataEntrada" type="date" class="form-control" id="dataEntrada" name="dataEntrada" value="" />
                     </div>
                     <div class="form-group col-md-6">
                         <label for="dataSaida">Data de Saída</label>
-                        <input type="date" class="form-control" id="dataSaida" name="dataSaida" value="" />
-                        <div class="invalid-feedback">
-
-                        </div>
+                        <input formControlName="dataSaida" type="date" class="form-control" id="dataSaida" name="dataSaida" value="" />
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="cargo">Cargo</label>
-                        <select id="cargo" class="form-control" name="cargo">
+                        <select formControlName="cargo" [compareWith]="compararCargos" id="cargo" class="form-control" name="cargo">
                             <option value="">Selecione...</option>
-                            <option value="1">Auxiliar Contábil</option>
-                            <option value="2">Auxiliar Administrativo</option>
-                            <option value="3">Contador</option>
-                            <option value="4">Adminitrador</option>
-                            <option value="5">Programado PHP</option>
-                            <option value="6">Desenvolvedor Java Jr.</option>
-                            <option value="7">Desenvolvedor Java Pleno</option>
-                            <option value="8">Desenvolvedor Java Senior</option>
-                            <option value="9">Auxiliar de RH</option>
-                            <option value="10">Coordenador de RH</option>
-                            <option value="11">Psicologo</option>
+                            <option *ngFor="let cargos of cargosDTO" [ngValue]="cargos">{{ cargos.nome }}</option>
                         </select>
-                        <div class="invalid-feedback">
-
-                        </div>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6" formGroupName="endereco">
                         <label for="cidade">Cidade</label>
-                        <input type="text" class="form-control" id="cidade" name="endereco.cidade" value="" />
-                        <div class="invalid-feedback">
+                        <input formControlName="cidade" type="text" class="form-control" id="cidade" name="endereco" value="" />
 
-                        </div>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6" formGroupName="endereco">
                         <label for="logradouro">Logradouro</label>
-                        <input type="text" class="form-control" id="logradouro" placeholder="logradouro sem número" name="endereco.logradouro" value="" />
-                        <div class="invalid-feedback">
-
-                        </div>
+                        <input formControlName="logradouro" type="text" class="form-control" id="logradouro" placeholder="logradouro sem número" name="endereco" value="" />
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6" formGroupName="endereco">
                         <label for="numero">Número</label>
-                        <input type="text" class="form-control" id="numero" name="endereco.numero" value="" />
-                        <div class="invalid-feedback">
+                        <input formControlName="numero" type="text" class="form-control" id="numero" name="endereco" value="" />
 
-                        </div>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="complemento">Complemento</label>
-                        <input type="text" class="form-control" id="complemento" placeholder="fundos, casa, AP. 102, .." name="endereco.complemento" value="" />
-                        <div class="invalid-feedback">
+                        <input type="text" class="form-control" id="complemento" placeholder="fundos, casa, AP. 102, .." name="endereco" value="" />
 
-                        </div>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6" formGroupName="endereco">
                         <label for="bairro">Bairro</label>
-                        <input type="text" class="form-control" id="bairro" name="endereco.bairro" value="" />
-                        <div class="invalid-feedback">
-
-                        </div>
+                        <input formControlName="bairro" type="text" class="form-control" id="bairro" name="endereco" value="" />
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-4" formGroupName="endereco">
                         <label for="uf">UF</label>
-                        <select id="uf" class="form-control" name="endereco.uf">
+                        <select formControlName="uf" id="uf" class="form-control" name="endereco">
                             <option value="">Selecione...</option>
-                            <option value="AC">AC</option>
-                            <option value="AL">AL</option>
-                            <option value="AM">AM</option>
-                            <option value="BA">BA</option>
-                            <option value="CE">CE</option>
-                            <option value="DF">DF</option>
-                            <option value="ES">ES</option>
-                            <option value="GO">GO</option>
-                            <option value="MA">MA</option>
-                            <option value="MT">MT</option>
-                            <option value="MS">MS</option>
-                            <option value="MG">MG</option>
-                            <option value="PA">PA</option>
-                            <option value="PB">PB</option>
-                            <option value="PR">PR</option>
-                            <option value="PE">PE</option>
-                            <option value="PI">PI</option>
-                            <option value="RJ">RJ</option>
-                            <option value="RN">RN</option>
-                            <option value="RS">RS</option>
-                            <option value="RO">RO</option>
-                            <option value="RR">RR</option>
-                            <option value="SC">SC</option>
-                            <option value="SP">SP</option>
-                            <option value="SE">SE</option>
-                            <option value="TO">TO</option>
+                            <option *ngFor="let uf of ufs" [ngValue]="uf">{{ uf }}</option>
                         </select>
-                        <div class="invalid-feedback">
-
-                        </div>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-2" formGroupName="endereco">
                         <label for="cep">Cep</label>
-                        <input type="text" class="form-control" id="cep" mask="00.000-000" placeholder="00.000-000" name="endereco.cep" value="" />
-                        <div class="invalid-feedback">
-
-                        </div>
+                        <input formControlName="cep" type="text" class="form-control" id="cep" mask="00000-000" placeholder="00000-000" name="endereco" value="" />
                     </div>
                 </div>
                 <input type="hidden" id="id" name="id" value="" />
-                <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+                <button type="submit" (click)="salvar()" class="btn btn-primary btn-sm">Salvar</button>
             </form>
         </div>
     </section>

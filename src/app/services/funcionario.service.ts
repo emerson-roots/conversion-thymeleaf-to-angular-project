@@ -41,4 +41,9 @@ export class FuncionarioService {
   loadById(id: any){
     return this.http.get(`${Funcionarios_API.baseUrl}/${id}`).pipe(take(1))
   }
+
+  getUFs(){
+    return this.http.get(`${Funcionarios_API.baseUrl}/ufs`).pipe(take(1))
+  }
+
 }
