@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { CargoService } from './../../../services/cargo.service';
 import { FuncionarioDTO } from './../../../model/dto/funcionario.dto';
 import { Component, OnInit } from '@angular/core';
@@ -18,6 +20,7 @@ export class FuncionarioCadastroComponent implements OnInit {
   cargosDTO!: CargoDTO[];
   formGroup!: FormGroup;
   ufs!: string[];
+  inscricao!: Subscription
 
 
   constructor(
@@ -25,7 +28,8 @@ export class FuncionarioCadastroComponent implements OnInit {
     public cargoService: CargoService,
     public errorService: ErrorService,
     public formBuilder: FormBuilder,
-    public alertService: AlertService) {
+    public alertService: AlertService,
+    public activatedRouter: ActivatedRoute) {
 
     // set pattern not blank on validation
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
@@ -33,21 +37,21 @@ export class FuncionarioCadastroComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       //cria os campos e ja insere um valor padrao ao input HTML (é possivel predefinir valores iniciais)
       id: [null],
-      nome: ['Emerson', [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern(nonWhitespaceRegExp)]],
-      salario: [150, [Validators.required, Validators.pattern(nonWhitespaceRegExp)]],
-      dataEntrada: ["2021-06-27", [Validators.required]],
-      dataSaida: [''],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern(nonWhitespaceRegExp)]],
+      salario: [null, [Validators.required, Validators.pattern(nonWhitespaceRegExp)]],
+      dataEntrada: [null, [Validators.required]],
+      dataSaida: [null],
       cargo: ['', [Validators.required]],
 
       endereco: this.formBuilder.group({
         id: [null],
-        logradouro: ["rua bahia", [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern(nonWhitespaceRegExp)]],
-        bairro: ["caiçara", [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern(nonWhitespaceRegExp)]],
-        cidade: ["praia grande", [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern(nonWhitespaceRegExp)]],
+        logradouro: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern(nonWhitespaceRegExp)]],
+        bairro: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern(nonWhitespaceRegExp)]],
+        cidade: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern(nonWhitespaceRegExp)]],
         uf: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2), Validators.pattern(nonWhitespaceRegExp)]],
-        cep: ["12345-678", [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern(nonWhitespaceRegExp)]],
-        numero: [244, [Validators.required, Validators.min(1), Validators.max(99999), Validators.pattern(nonWhitespaceRegExp)]],
-        complemento: ["esquina açougue", [Validators.maxLength(255)]],
+        cep: [null, [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern(nonWhitespaceRegExp)]],
+        numero: [null, [Validators.required, Validators.min(1), Validators.max(99999), Validators.pattern(nonWhitespaceRegExp)]],
+        complemento: [null, [Validators.maxLength(255)]],
 
       })
     })
@@ -57,6 +61,7 @@ export class FuncionarioCadastroComponent implements OnInit {
   ngOnInit(): void {
     this.listaCargos();
     this.listaUFs();
+    this.preEdit();
   }
 
   salvar() {
@@ -64,14 +69,16 @@ export class FuncionarioCadastroComponent implements OnInit {
     if (!this.formGroup.invalid) {
       let funcDTO: FuncionarioDTO = this.formGroup.value;
 
-      console.log(funcDTO);
-
       this.funcionarioService.save(funcDTO)
         .subscribe(response => {
 
+          if (funcDTO.id == null) {
+            //chama o serviço de alert... segundo parametro é opcional
+            this.alertService.success(`Funcionario ${JSON.stringify(this.formGroup.controls.nome.value)} cadastrado com sucesso!`)
+          } else {
+            this.alertService.success(`Funcionario ${JSON.stringify(this.formGroup.controls.nome.value)} editado com sucesso!`)
+          }
 
-          //chama o serviço de alert... segundo parametro é opcional
-          this.alertService.success(`Funcionario ${JSON.stringify(this.formGroup.controls.nome.value)} cadastrado com sucesso!`)
           //limpa formulario
           this.formGroup.reset()
 
@@ -84,29 +91,63 @@ export class FuncionarioCadastroComponent implements OnInit {
     }
   }
 
-    // lista departamentos para popular combobox
-    listaCargos() {
-      return this.cargoService.findAll().subscribe(res => {
-        this.cargosDTO = res;
-      },
-      error => {})
-    }
+  preEdit() {
 
-    listaUFs() {
-      return this.funcionarioService.getUFs()
-        .subscribe((res: any) => {
+    let qtdparamsRecebidos = this.activatedRouter.snapshot.paramMap.getAll('id').length;
+
+    //somente carrega dados no forma para editar
+    //se nao vier parametros ID
+    if (qtdparamsRecebidos != 0) {
+      /**
+       * https://www.youtube.com/watch?v=AEUSrpsAPtw
+       * trecho implementado com base no video Loiane Groner
+       */
+      this.inscricao = this.activatedRouter.data.subscribe(
+        (funcionario) => {
+          // o atributo "cargoResolver" esta ligado diretamente com o
+          // parametro setado no "app-routing.module.ts"
+          this.funcionarioDTO = funcionario.funcionarioResolver;
+          this.updateForm(this.funcionarioDTO)
+        }
+      );
+    }
+  }
+
+  /** carrega dados no formulario para edicao */
+  updateForm(funcionarioDto: FuncionarioDTO) {
+    this.formGroup.patchValue({
+      id: funcionarioDto.id,
+      nome: funcionarioDto.nome,
+      salario: funcionarioDto.salario,
+      dataEntrada: funcionarioDto.dataEntrada,
+      dataSaida: funcionarioDto.dataSaida,
+      cargo: funcionarioDto.cargo,
+      endereco: funcionarioDto.endereco
+    });
+  }
+  // lista departamentos para popular combobox
+  listaCargos() {
+    return this.cargoService.findAll().subscribe(res => {
+      this.cargosDTO = res;
+    },
+      error => { })
+  }
+
+  listaUFs() {
+    return this.funcionarioService.getUFs()
+      .subscribe((res: any) => {
         this.ufs = res;
       },
-      error => {})
-    }
+        error => { })
+  }
 
-    /** implementado com base no video da Loiane
-     * https://www.youtube.com/watch?v=eeElkzR2gd4
-     *
-     * para comparar os valores setados na combobox
-     */
-    compararCargos(obj1: any, obj2: any) {
-      return obj1 && obj2 ? (obj1.id === obj2.id) : obj1 === obj2;
-    }
+  /** implementado com base no video da Loiane
+   * https://www.youtube.com/watch?v=eeElkzR2gd4
+   *
+   * para comparar os valores setados na combobox
+   */
+  compararCargos(obj1: any, obj2: any) {
+    return obj1 && obj2 ? (obj1.id === obj2.id) : obj1 === obj2;
+  }
 
 }

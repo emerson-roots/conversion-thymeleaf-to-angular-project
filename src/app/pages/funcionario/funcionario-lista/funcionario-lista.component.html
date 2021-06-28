@@ -127,7 +127,7 @@
                             <td>{{ funcionarios.dataEntrada | date:'dd/MM/yyyy'}}</td>
                             <td>{{ funcionarios.dataSaida | date:'dd/MM/yyyy' }}</td>
                             <td colspan="2">
-                                <a class="btn btn-info btn-sm" href="/funcionarios/editar/1" role="button">
+                                <a class="btn btn-info btn-sm" (click)="edit( funcionarios.id )" role="button">
                                     <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
                                 </a>
                                 <button (click)="openConfirmationDialog(funcionarios.id)" id="btn_funcionarios/excluir/1" type="button" class="btn btn-danger btn-sm">

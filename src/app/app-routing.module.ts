@@ -10,6 +10,7 @@ import { FuncionarioCadastroComponent } from './pages/funcionario/funcionario-ca
 import { FuncionarioListaComponent } from './pages/funcionario/funcionario-lista/funcionario-lista.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DepartamentoResolver } from './guards/departamento-resolver'
+import { FuncionarioResolverGuard } from './guards/funcionario-resolver.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,6 +34,12 @@ const routes: Routes = [
   },
   { path: 'funcionarios/cadastrar', component: FuncionarioCadastroComponent },
   { path: 'funcionarios/listar', component: FuncionarioListaComponent },
+  {
+    path: 'funcionarios/editar/:id', component: FuncionarioCadastroComponent,
+    resolve: {
+      funcionarioResolver: FuncionarioResolverGuard
+    }
+  },
   { path: 'error', component: ErrorComponent },
 ];
 

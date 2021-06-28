@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertService } from 'src/app/fragments/alert/alert.service';
 import { FuncionarioDTO } from 'src/app/model/dto/funcionario.dto';
 import { ErrorService } from 'src/app/services/error.service';
@@ -18,7 +19,8 @@ export class FuncionarioListaComponent implements OnInit {
     public funcionarioService: FuncionarioService,
     public errorService: ErrorService,
     public alertService: AlertService,
-    private confirmationDialogService: ConfirmationDialogService) { }
+    private confirmationDialogService: ConfirmationDialogService,
+    public router: Router) { }
 
   // variaveis para trabalhar em conjunto do ng-boostrap-collapse do html
   public nomeCollapsed = true;
@@ -49,6 +51,10 @@ export class FuncionarioListaComponent implements OnInit {
       }, error => {
         this.errorService.errorAlert(error, "Ocorreu um erro ao excluir o Funcionário.")
       });
+  }
+
+  edit(id: number) {
+    this.router.navigate(['funcionarios/editar', id])
   }
 
   openConfirmationDialog(id: number) {
