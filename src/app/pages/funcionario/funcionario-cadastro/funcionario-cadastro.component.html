@@ -29,17 +29,23 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nome">Nome do Funcionário</label>
-                        <input formControlName="nome" type="text" class="form-control" id="nome" placeholder="Nome Completo" autofocus="autofocus" name="nome" value="" />
+                        <input [ngClass]="{'input-error': formGroup.get('nome')?.invalid}" formControlName="nome" type="text" class="form-control" id="nome" placeholder="Nome Completo" name="nome" value="" />
+                        <!-- validation messages -->
+                        <app-show-validation-errors [formCtrl]="formGroup.get('nome')"></app-show-validation-errors>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="salario">Salário Bruto</label>
-                        <input formControlName="salario" type="text" class="form-control" id="salario" mask="0*.00" thousandSeparator="." name="salario" value="" placeholder="0.000.000,00" />
+                        <input [ngClass]="{'input-error': formGroup.get('salario')?.invalid}" formControlName="salario" type="text" class="form-control" id="salario" mask="0*.00" thousandSeparator="." name="salario" value="" placeholder="0.000.000,00" />
+                        <!-- validation messages -->
+                        <app-show-validation-errors [formCtrl]="formGroup.get('salario')"></app-show-validation-errors>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="dataEntrada">Data de Entrada</label>
-                        <input formControlName="dataEntrada" type="date" class="form-control" id="dataEntrada" name="dataEntrada" value="" />
+                        <input [ngClass]="{'input-error': formGroup.get('dataEntrada')?.invalid}" formControlName="dataEntrada" type="date" class="form-control" id="dataEntrada" name="dataEntrada" value="" />
+                        <!-- validation messages -->
+                        <app-show-validation-errors [formCtrl]="formGroup.get('dataEntrada')"></app-show-validation-errors>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="dataSaida">Data de Saída</label>
@@ -49,50 +55,66 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="cargo">Cargo</label>
-                        <select formControlName="cargo" [compareWith]="compararCargos" id="cargo" class="form-control" name="cargo">
-                            <option value="">Selecione...</option>
-                            <option *ngFor="let cargos of cargosDTO" [ngValue]="cargos">{{ cargos.nome }}</option>
+                        <select [ngClass]="{'input-error': formGroup.get('cargo')?.invalid}" formControlName="cargo" [compareWith]="compararCargos" id="cargo" class="form-control" name="cargo">
+                          <option value="">Selecione...</option>
+                          <option *ngFor="let cargos of cargosDTO" [ngValue]="cargos">{{ cargos.nome }}</option>
                         </select>
+                        <!-- validation messages -->
+                        <app-show-validation-errors [formCtrl]="formGroup.get('cargo')"></app-show-validation-errors>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6" formGroupName="endereco">
-                        <label for="cidade">Cidade</label>
-                        <input formControlName="cidade" type="text" class="form-control" id="cidade" name="endereco" value="" />
+                <!-- formgroup ENDERECO -->
+                <div formGroupName="endereco">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="cidade">Cidade</label>
+                            <input [ngClass]="{'input-error': formGroup.get('endereco.cidade')?.invalid}" formControlName="cidade" type="text" class="form-control" id="cidade" name="endereco.cidade" value="" />
+                            <!-- validation messages -->
+                            <app-show-validation-errors [formCtrl]="formGroup.get('endereco.cidade')"></app-show-validation-errors>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="logradouro">Logradouro</label>
+                            <input [ngClass]="{'input-error': formGroup.get('endereco.logradouro')?.invalid}" formControlName="logradouro" type="text" class="form-control" id="logradouro" placeholder="logradouro sem número" name="endereco.logradouro" value="" />
+                            <!-- validation messages -->
+                            <app-show-validation-errors [formCtrl]="formGroup.get('endereco.logradouro')">
+                            </app-show-validation-errors>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="numero">Número</label>
+                            <input [ngClass]="{'input-error': formGroup.get('endereco.numero')?.invalid}" formControlName="numero" type="number" class="form-control" id="numero" name="endereco.numero" value="" />
+                            <!-- validation messages -->
+                            <app-show-validation-errors [formCtrl]="formGroup.get('endereco.numero')"></app-show-validation-errors>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="complemento">Complemento</label>
+                            <input formControlName="complemento" type="text" class="form-control" id="complemento" placeholder="fundos, casa, AP. 102, .." name="endereco" value="" />
 
+                        </div>
                     </div>
-                    <div class="form-group col-md-6" formGroupName="endereco">
-                        <label for="logradouro">Logradouro</label>
-                        <input formControlName="logradouro" type="text" class="form-control" id="logradouro" placeholder="logradouro sem número" name="endereco" value="" />
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6" formGroupName="endereco">
-                        <label for="numero">Número</label>
-                        <input formControlName="numero" type="text" class="form-control" id="numero" name="endereco" value="" />
-
-                    </div>
-                    <div class="form-group col-md-6" formGroupName="endereco">
-                        <label for="complemento">Complemento</label>
-                        <input formControlName="complemento" type="text" class="form-control" id="complemento" placeholder="fundos, casa, AP. 102, .." name="endereco" value="" />
-
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6" formGroupName="endereco">
-                        <label for="bairro">Bairro</label>
-                        <input formControlName="bairro" type="text" class="form-control" id="bairro" name="endereco" value="" />
-                    </div>
-                    <div class="form-group col-md-4" formGroupName="endereco">
-                        <label for="uf">UF</label>
-                        <select formControlName="uf" id="uf" class="form-control" name="endereco">
-                            <option value="">Selecione...</option>
-                            <option *ngFor="let uf of ufs" [ngValue]="uf">{{ uf }}</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2" formGroupName="endereco">
-                        <label for="cep">Cep</label>
-                        <input formControlName="cep" type="text" class="form-control" id="cep" mask="00000-000" placeholder="00000-000" name="endereco" value="" />
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="bairro">Bairro</label>
+                            <input [ngClass]="{'input-error': formGroup.get('endereco.bairro')?.invalid}" formControlName="bairro" type="text" class="form-control" id="bairro" name="endereco.bairro" value="" />
+                            <!-- validation messages -->
+                            <app-show-validation-errors [formCtrl]="formGroup.get('endereco.bairro')"></app-show-validation-errors>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="uf">UF</label>
+                            <select [ngClass]="{'input-error': formGroup.get('endereco.uf')?.invalid}" formControlName="uf" id="uf" class="form-control" name="endereco.uf">
+                              <option value="">Selecione...</option>
+                              <option *ngFor="let uf of ufs" [ngValue]="uf">{{ uf }}</option>
+                          </select>
+                            <!-- validation messages -->
+                            <app-show-validation-errors [formCtrl]="formGroup.get('endereco.uf')"></app-show-validation-errors>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="cep">Cep</label>
+                            <input [ngClass]="{'input-error': formGroup.get('endereco.cep')?.invalid}" formControlName="cep" type="text" class="form-control" id="cep" mask="00000-000" placeholder="00000-000" name="endereco.cep" value="" />
+                            <!-- validation messages -->
+                            <app-show-validation-errors [formCtrl]="formGroup.get('endereco.cep')"></app-show-validation-errors>
+                        </div>
                     </div>
                 </div>
                 <input type="hidden" id="id" name="id" value="" />

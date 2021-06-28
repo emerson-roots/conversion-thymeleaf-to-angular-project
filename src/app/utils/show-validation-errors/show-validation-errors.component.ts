@@ -13,7 +13,10 @@ export class ShowValidationErrorsComponent implements OnInit {
     required: () => `É obrigatório!`,
     minlength: (par: { requiredLength: any }) => `Mínimo ${par.requiredLength} caracteres!`,
     maxlength: (par: { requiredLength: any }) => `Máximo ${par.requiredLength} caracteres!`,
-    pattern: () => `Campo esta vazio/em branco!`
+    min: (par: { min: any }) => `Valor mínimo deve ser ${par.min}!`,
+    max: (par: { max: any }) => `Valor máximo deve ser ${par.max}!`,
+    pattern: () => `Campo esta vazio/em branco!`,
+    mask: (par: { requiredMask: any }) => `O campo não esta no padrão ${par.requiredMask}!`
   };
 
   constructor() { }
@@ -26,7 +29,6 @@ export class ShowValidationErrorsComponent implements OnInit {
   }
 
   listOfErrors(): string[] {
-
     return Object.keys(this.formCtrl.errors)
       .map(err =>
         this.ERROR_MESSAGE[err](this.formCtrl.getError(err))

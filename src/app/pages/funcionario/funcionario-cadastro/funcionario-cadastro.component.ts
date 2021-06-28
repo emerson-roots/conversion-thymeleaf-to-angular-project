@@ -38,7 +38,7 @@ export class FuncionarioCadastroComponent implements OnInit {
       //cria os campos e ja insere um valor padrao ao input HTML (é possivel predefinir valores iniciais)
       id: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern(nonWhitespaceRegExp)]],
-      salario: [null, [Validators.required, Validators.pattern(nonWhitespaceRegExp)]],
+      salario: [null, [Validators.required, Validators.min(1), Validators.pattern(nonWhitespaceRegExp)]],
       dataEntrada: [null, [Validators.required]],
       dataSaida: [null],
       cargo: ['', [Validators.required]],
@@ -51,7 +51,7 @@ export class FuncionarioCadastroComponent implements OnInit {
         uf: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2), Validators.pattern(nonWhitespaceRegExp)]],
         cep: [null, [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern(nonWhitespaceRegExp)]],
         numero: [null, [Validators.required, Validators.min(1), Validators.max(99999), Validators.pattern(nonWhitespaceRegExp)]],
-        complemento: [null, [Validators.maxLength(255)]],
+        complemento: ['', [Validators.maxLength(255)]],
 
       })
     })
@@ -87,8 +87,28 @@ export class FuncionarioCadastroComponent implements OnInit {
         });
     } else {
       // logica de VALIDAÇÃO aqui
-      console.log('form invalido')
+      this.marcaCampoComoModificado(this.formGroup);
     }
+  }
+
+  marcaCampoComoModificado(form: FormGroup) {
+
+    Object.keys(form.controls)
+      .forEach(campoIterado => {
+
+        const controle = form.get(campoIterado);
+
+        // verifica se campo está invalido
+        // e marca como modificado/sujo/tocado
+        controle?.markAsDirty();
+        controle?.markAsTouched();
+
+        if(controle instanceof FormGroup){
+          this.marcaCampoComoModificado(controle);
+        }
+
+      });
+
   }
 
   preEdit() {
