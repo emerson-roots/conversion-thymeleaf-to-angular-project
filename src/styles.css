@@ -33,7 +33,7 @@ body {
     display: block;
 }
 
-.input-error.ng-touched.ng-dirty {
+.input-error.ng-touched {
     border: red 1px solid;
 }
 

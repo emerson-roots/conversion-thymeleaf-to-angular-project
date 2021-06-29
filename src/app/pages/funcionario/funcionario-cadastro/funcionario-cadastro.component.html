@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="salario">Salário Bruto</label>
-                        <input [ngClass]="{'input-error': formGroup.get('salario')?.invalid}" formControlName="salario" type="text" class="form-control" id="salario" mask="0*.00" thousandSeparator="." name="salario" value="" placeholder="0.000.000,00" />
+                        <input [ngClass]="{'input-error': formGroup.get('salario')?.invalid}" formControlName="salario" type="text" class="form-control" id="salario" mask="0*.00" thousandSeparator="." name="salario" value="" placeholder="0.000,00" />
                         <!-- validation messages -->
                         <app-show-validation-errors [formCtrl]="formGroup.get('salario')"></app-show-validation-errors>
                     </div>

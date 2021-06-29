@@ -18,10 +18,19 @@ export class ErrorService {
 
   errorAlert(erro: any, message: string) {
     this.errorFields = erro;
+
+    let obj = Object(this.errorFields.errors);
+    let msgFromatada: string = '';
+    let qtdErros: number = 0 ;
+
+    obj.forEach((value: any, key: number) => {
+      qtdErros = qtdErros + 1;
+      msgFromatada = msgFromatada + '<br>'+ (key + 1) + '° - ' + value['message']
+    })
     this.alertService.error(message
-      + " | Erro: " + this.errorFields.error
+      + " | Tipo: " + this.errorFields.error
       + " | Status: " + this.errorFields.status
-      + " | Mensagem: " + this.errorFields.message,
+      + " |<br><br> " + qtdErros + " erro(s) encontrado(s); " + msgFromatada,
       this.optionsAlert);
   }
 

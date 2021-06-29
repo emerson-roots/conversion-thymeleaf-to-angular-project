@@ -1,8 +1,6 @@
 import { ErrorFields } from './../../config/error.fields';
 import { ErrorService } from './../../services/error.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,6 +12,7 @@ export class ErrorComponent implements OnInit {
 
   erroFields: ErrorFields = {
     error: '',
+    errors: [],
     message: '',
     status: 0,
     timestamp: 0,
