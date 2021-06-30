@@ -19,19 +19,35 @@ export class ErrorService {
   errorAlert(erro: any, message: string) {
     this.errorFields = erro;
 
-    let obj = Object(this.errorFields.errors);
+    let objErrors = Object(erro.errors);
     let msgFromatada: string = '';
-    let qtdErros: number = 0 ;
+    let qtdErros: number = 0;
 
-    obj.forEach((value: any, key: number) => {
-      qtdErros = qtdErros + 1;
-      msgFromatada = msgFromatada + '<br>'+ (key + 1) + '° - ' + value['message']
-    })
-    this.alertService.error(message
-      + " | Tipo: " + this.errorFields.error
-      + " | Status: " + this.errorFields.status
-      + " |<br><br> " + qtdErros + " erro(s) encontrado(s); " + msgFromatada,
-      this.optionsAlert);
+    // verifica se o backend trouxe erros de validação
+    // objErrors pode vir undefined, se for, nao itera o array de errors
+    if (erro.errors != null) {
+
+      objErrors.forEach((value: any, key: number) => {
+        qtdErros = qtdErros + 1;
+        msgFromatada = msgFromatada + '<br>' + (key + 1) + '° - ' + value['message']
+      })
+
+      this.alertService.error(message
+        + " | Tipo: " + this.errorFields.error
+        + " | Status: " + this.errorFields.status
+        + " |<br><br> " + qtdErros + " erro(s) encontrado(s); " + msgFromatada,
+        this.optionsAlert);
+
+    } else {
+
+      // monta alert simples
+      this.alertService.error(message
+        + " | Erro: " + this.errorFields.error
+        + " | Status: " + this.errorFields.status
+        + " | Mensagem: " + this.errorFields.message,
+        this.optionsAlert);
+    }
+
   }
 
   errorPage(erro: any) {
