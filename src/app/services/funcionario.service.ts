@@ -38,6 +38,10 @@ export class FuncionarioService {
     return this.http.get<FuncionarioDTO[]>(`${Funcionarios_API.baseUrl}/search/name?nome=${nome}`);
   }
 
+  findAllByOffice(id: number): Observable<FuncionarioDTO[]> {
+    return this.http.get<FuncionarioDTO[]>(`${Funcionarios_API.baseUrl}/search/office?id=${id}`);
+  }
+
   delete(id: any) {
     return this.http.delete(`${Funcionarios_API.baseUrl}/${id}`);
   }
