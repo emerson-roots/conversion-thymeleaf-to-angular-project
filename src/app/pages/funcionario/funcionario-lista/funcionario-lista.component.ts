@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/fragments/alert/alert.service';
 import { FuncionarioDTO } from 'src/app/model/dto/funcionario.dto';
@@ -27,6 +27,9 @@ export class FuncionarioListaComponent implements OnInit {
   public cargoCollapsed = true;
   public departamentoCollapsed = true;
 
+  // captura o valor do input de pesquisa por nome
+  @Input() searchNome!: string;
+
   ngOnInit(): void {
     this.findAll();
   }
@@ -40,6 +43,16 @@ export class FuncionarioListaComponent implements OnInit {
           /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
            posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
           this.errorService.errorAlert(error, "Ocorreu um erro ao listar os Funcionários.")
+        });
+  }
+
+  findAllByName(nomeParam: string) {
+    this.funcionarioService.findAllByName(nomeParam)
+      .subscribe(response => {
+        this.funcionariosDTO = response
+      },
+        error => {
+          this.errorService.errorAlert(error, "Ocorreu um erro ao buscar os Funcionários por nome.")
         });
   }
 
