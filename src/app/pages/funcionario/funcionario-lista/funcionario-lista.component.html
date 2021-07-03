@@ -51,7 +51,7 @@
                     <div class="collapse" id="collapseCargo" [(ngbCollapse)]="cargoCollapsed">
 
                         <nav class="navbar navbar-light bg-light">
-                            <form class="form-inline" method="GET" action="/funcionarios/buscar/cargo">
+                            <form class="form-inline">
                                 <select [(ngModel)]="searchCargo" class="form-control mr-sm-2" name="cargo" aria-label="Search">
                                   <option value="">Selecione ...</option>
                                   <option *ngFor="let cargos of cargosDTO " [ngValue]="cargos.id">{{ cargos.nome }}</option>
@@ -68,10 +68,10 @@
                     <div class="collapse" id="collapseData" [(ngbCollapse)]="departamentoCollapsed">
 
                         <nav class="navbar navbar-light bg-light">
-                            <form class="form-inline" method="GET" action="/funcionarios/buscar/data">
-                                <input class="form-control mr-sm-2" type="date" aria-label="Search" name="entrada" />
-                                <input class="form-control mr-sm-2" type="date" aria-label="Search" name="saida" />
-                                <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
+                            <form class="form-inline">
+                                <input [(ngModel)]="searchDataEntrada" datetime="yyyy-MM-dd" class="form-control mr-sm-2" type="date" aria-label="Search" name="entrada" />
+                                <input [(ngModel)]="searchDataSaida" datetime="yyyy-MM-dd" class="form-control mr-sm-2" type="date" aria-label="Search" name="saida" />
+                                <button (click)="findAllByDate(searchDataEntrada, searchDataSaida)" class="btn btn-outline-success my-2 my-sm-0">Search</button>
                             </form>
                         </nav>
 

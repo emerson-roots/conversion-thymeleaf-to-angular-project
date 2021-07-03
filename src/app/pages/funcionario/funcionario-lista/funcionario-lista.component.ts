@@ -34,6 +34,8 @@ export class FuncionarioListaComponent implements OnInit {
   // captura o valor do input ou select de pesquisa
   @Input() searchNome!: string;
   @Input() searchCargo!: number;
+  @Input() searchDataEntrada: string = '';
+  @Input() searchDataSaida: string = '';
 
   ngOnInit(): void {
     this.findAll();
@@ -70,6 +72,17 @@ export class FuncionarioListaComponent implements OnInit {
       },
         error => {
           this.errorService.errorAlert(error, "Ocorreu um erro ao buscar os Funcionários pelo Cargo.")
+        });
+  }
+
+  findAllByDate(dataEntrada: string, dataSaida: string) {
+
+    this.funcionarioService.findAllByDate(dataEntrada, dataSaida)
+      .subscribe(response => {
+        this.funcionariosDTO = response
+      },
+        error => {
+          this.errorService.errorAlert(error, "Ocorreu um erro ao buscar os Funcionários por datas.")
         });
   }
 
