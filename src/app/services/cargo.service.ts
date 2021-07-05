@@ -34,6 +34,15 @@ export class CargoService {
     return this.http.get<CargoDTO[]>(`${Cargos_API.baseUrl}`);
   }
 
+  findAllPageable(page: number,
+    linesPerPage: number,
+    orderBy: string,
+    directionOrdenation: string): Observable<CargoDTO[]> {
+
+    return this.http.get<CargoDTO[]>(
+      `${Cargos_API.baseUrl}/page?page=${page}&linesPerPage=${linesPerPage}&orderBy=${orderBy}&direction=${directionOrdenation}`);
+  }
+
   delete(id: any) {
     return this.http.delete(`${Cargos_API.baseUrl}/${id}`);
   }

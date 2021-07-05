@@ -52,6 +52,37 @@
                         </tr>
                     </tbody>
                 </table>
+                <!-- paginação -->
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li [ngClass]="{'page-item disabled': pageNumber + 1  === 1}" class="page-item">
+                            <a (click)="findAllPageable(0, linesPerPage, orderBy, directionOrdenation)" class="page-link" tabindex="-1" aria-disabled="true">Primeira</a>
+                        </li>
+                        <!-- aula 84 - desabilita os botoes de paginação Previous/Next de acordo com a pagina -->
+                        <li [ngClass]="{'page-item disabled': pageNumber + 1  === 1}">
+                            <a class="page-link" (click)="findAllPageable(pageNumber = pageNumber - 1, linesPerPage, orderBy, directionOrdenation)" tabindex="-1" aria-disabled="true">Anterior</a>
+                        </li>
+                        <li class="page-item">
+                            <!-- aula 84 - insere o numero da pagina e a quantidade total -->
+                            <span class="page-link">{{ pageNumber + 1 }} de {{totalPages}}</span>
+                        </li>
+                        <!-- aula 84 - desabilita os botoes de paginação Previous/Next de acordo com a pagina -->
+                        <li class="page-item" [ngClass]="{'page-item disabled': pageNumber + 1  === totalPages}">
+                            <a class="page-link" (click)="findAllPageable(pageNumber = pageNumber + 1, linesPerPage, orderBy, directionOrdenation)" tabindex="-1" aria-disabled="true">Próxima</a>
+                        </li>
+                        <li class="page-item" [ngClass]="{'page-item disabled': pageNumber + 1  === totalPages}">
+                            <a (click)="findAllPageable(totalPages -1, linesPerPage, orderBy, directionOrdenation)" class="page-link" tabindex="-1" aria-disabled="true">Última</a>
+                        </li>
+                        <li>
+                            <select [(ngModel)]="linesPerPage" class="custom-select" (change)="findAllPageable(pageNumber, linesPerPage, orderBy, directionOrdenation)">
+                              <option [ngValue]="5">Mostrar 5 itens por página</option>
+                              <option [ngValue]="10">Mostrar 10 itens por página</option>
+                              <option [ngValue]="15">Mostrar 15 itens por página</option>
+                            </select>
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
         </div>
     </section>
