@@ -30,7 +30,15 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Cargo</th>
+                            <th>
+                                <a (click)="findAllPageable(pageNumber, linesPerPage, orderBy, 'ASC')" tabindex="-1" aria-disabled="true">
+                                    <span class="oi oi-arrow-circle-bottom" data-toggle="tooltip" data-placement="top" title="Classifica em ordem Ascendente (A - Z)"></span>
+                                </a>
+                                Cargo
+                                <a (click)="findAllPageable(pageNumber, linesPerPage, orderBy, 'DESC')" tabindex="-1" aria-disabled="true">
+                                    <span class="oi oi-arrow-circle-top" data-toggle="tooltip" data-placement="top" title="Classifica em ordem Descendente (Z - A)"></span>
+                                </a>
+                            </th>
                             <th>Departamento</th>
                             <th>Ação</th>
                         </tr>

@@ -24,6 +24,14 @@ body {
 }
 
 
+/* ajusta cor do icone do botao edit nas listas
+cor original foi perdida devido exclusão do href */
+
+.oi-brush {
+    color: white;
+}
+
+
 /* paragrafo de validação dos inputs e border em input invalido */
 
 .danger {
@@ -45,19 +53,6 @@ body {
     height: 107%;
     margin: 0px;
 }
-
-
-/* mat-drawer {
-    height: 100%;
-} */
-
-
-/* mat-drawer-content {
-    padding-left: 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-} */
 
 
 /*
