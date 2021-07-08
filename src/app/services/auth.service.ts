@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { JwtHelper } from "angular2-jwt";
 import { API_CONFIG } from "../config/api.config";
 import { CredenciaisDTO } from "../model/dto/credenciais.dto";
 import { LocalUser } from "../model/dto/local_user";
@@ -9,6 +10,8 @@ import { StorageService } from "./storage.service";
   providedIn: 'root'
 })
 export class AuthService {
+
+  jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(public http: HttpClient,
     private storage: StorageService) {
@@ -34,7 +37,8 @@ export class AuthService {
 
     //seta um usuario com token valido
     let user: LocalUser = {
-      token: tok
+      token: tok,
+      email: this.jwtHelper.decodeToken(tok).sub
     };
 
     //armazena no local storage o usuário com token valido

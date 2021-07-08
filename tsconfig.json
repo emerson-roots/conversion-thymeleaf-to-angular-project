@@ -26,6 +26,7 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
-    "preserveWhitespaces": true //inserido para manter espaçamentos entre componentes HTML ou icones
+    "preserveWhitespaces": true, //inserido para manter espaçamentos entre componentes HTML ou icones
+    "skipLibCheck": true, //adicionado para correção de Error: node_modules/angular2-jwt/angular2-jwt.d.ts:88:41 - error TS2314: Generic type 'ModuleWithProviders<T>' requires 1 type argument(s).
   }
 }

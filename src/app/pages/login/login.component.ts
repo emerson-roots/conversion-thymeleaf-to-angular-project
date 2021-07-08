@@ -28,6 +28,9 @@ export class LoginComponent implements OnInit {
         this.authService.sucessfullLogin(response.headers.get('Authorization') || '');
         this.route.navigate(['home']);
       },
-        error => { });
+        error => {
+          // limpa qualquer localStorage armazenado caso falhar autenticacao
+          this.authService.logout();
+         });
   }
 }
