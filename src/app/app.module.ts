@@ -34,6 +34,7 @@ import { CargoService } from './services/cargo.service';
 import { FuncionarioService } from './services/funcionario.service';
 import { FuncionarioResolverGuard } from './guards/funcionario-resolver.guard';
 import { LoginComponent } from './pages/login/login.component';
+import { StorageService } from './services/storage.service';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { LoginComponent } from './pages/login/login.component';
     CargoResolverGuard,
     FuncionarioService,
     FuncionarioResolverGuard,
-    AuthService
+    AuthService,
+    StorageService
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
