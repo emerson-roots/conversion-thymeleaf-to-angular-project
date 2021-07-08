@@ -32,6 +32,7 @@ import { ShowValidationErrorsComponent } from './utils/show-validation-errors/sh
 import { CargoService } from './services/cargo.service';
 import { FuncionarioService } from './services/funcionario.service';
 import { FuncionarioResolverGuard } from './guards/funcionario-resolver.guard';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { FuncionarioResolverGuard } from './guards/funcionario-resolver.guard';
     SidebarComponent,
     HomeComponent,
     ErrorComponent,
-    ShowValidationErrorsComponent
+    ShowValidationErrorsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

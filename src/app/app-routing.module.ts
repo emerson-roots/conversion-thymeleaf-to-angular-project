@@ -1,3 +1,4 @@
+import { LoginComponent } from './pages/login/login.component';
 import { CargoResolverGuard } from './guards/cargo-resolver.guard';
 import { ErrorComponent } from './pages/error/error.component';
 import { NgModule } from '@angular/core';
@@ -13,7 +14,8 @@ import { DepartamentoResolver } from './guards/departamento-resolver'
 import { FuncionarioResolverGuard } from './guards/funcionario-resolver.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'departamentos/cadastrar', component: DepartamentoCadastroComponent },
   { path: 'departamentos/listar', component: DepartamentoListaComponent },
   {
