@@ -10,11 +10,11 @@
                 <form>
                     <div class="form-group">
                         <label>E-mail</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Digite seu e-mail">
+                        <input [(ngModel)]="creds.email" type="email" name="email" class="form-control" id="email" placeholder="Digite seu e-mail">
                     </div>
                     <div class="form-group">
                         <label>Senha</label>
-                        <input type="password" name="senha" id="senha" class="form-control" placeholder="Digite sua senha">
+                        <input [(ngModel)]="creds.senha" type="password" name="senha" id="senha" class="form-control" placeholder="Digite sua senha">
                     </div>
                     <div class="col-md-12 text-center">
                         <button type="submit" (click)="login()" class=" btn btn-block mybtn btn-primary tx-tfm">Entrar</button>
