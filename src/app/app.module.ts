@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { CargoResolverGuard } from './guards/cargo-resolver.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -80,7 +81,8 @@ import { LoginComponent } from './pages/login/login.component';
     CargoService,
     CargoResolverGuard,
     FuncionarioService,
-    FuncionarioResolverGuard
+    FuncionarioResolverGuard,
+    AuthService
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
