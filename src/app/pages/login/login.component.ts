@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
         error => {
           // limpa qualquer localStorage armazenado caso falhar autenticacao
           this.authService.logout();
+          alert(error.message);
          });
   }
 }

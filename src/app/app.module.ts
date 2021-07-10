@@ -35,6 +35,7 @@ import { FuncionarioService } from './services/funcionario.service';
 import { FuncionarioResolverGuard } from './guards/funcionario-resolver.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { StorageService } from './services/storage.service';
+import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { StorageService } from './services/storage.service';
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     SidebarService,
     DepartamentoService,
+    AuthInterceptorProvider, // importante: a ordem dos interceptor aqui interfere na aplicacao... AuthInterceptor deve ser chamado antes de tratamento de erros
     ErrorInterceptorProvider,
     ErrorService,
     DepartamentoResolver,
@@ -85,6 +87,7 @@ import { StorageService } from './services/storage.service';
     FuncionarioResolverGuard,
     AuthService,
     StorageService
+
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
