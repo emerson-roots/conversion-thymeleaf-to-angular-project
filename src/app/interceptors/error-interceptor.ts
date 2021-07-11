@@ -30,18 +30,12 @@ export class ErrorInterceptor implements HttpInterceptor {
           errorObj = JSON.parse(errorObj);
         }
 
-        switch (errorObj.status) {
-          case 404:
-            this.handleError404(errorObj)
-            break
+        if(errorObj.status == 403 || errorObj.status == 404 || errorObj == undefined){
+          this.errorService.errorHandler(errorObj, "Ocorreu algum erro crítico capturado pelo interceptor.")
         }
 
         return Observable.throw(errorObj);
       }) as any;
-  }
-
-  handleError404(error: any) {
-    this.errorService.errorPage(error)
   }
 }
 

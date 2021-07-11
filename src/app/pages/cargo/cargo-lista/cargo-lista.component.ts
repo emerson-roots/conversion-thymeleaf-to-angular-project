@@ -39,9 +39,7 @@ export class CargoListaComponent implements OnInit {
         this.cargosDTO = response
       },
         error => {
-          /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
-           posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
-          this.errorService.errorAlert(error, "Ocorreu um erro ao listar os Cargos.")
+          this.errorService.errorHandler(error, "Ocorreu um erro ao listar os Cargos.")
         });
   }
 
@@ -59,14 +57,14 @@ export class CargoListaComponent implements OnInit {
 
         // a resposta é um objeto do tipo Page
         // armazena como genérico para fazer conversão
-        let tes: any = response;
+        let chaveValor: any = response;
 
         // captura as chaves necessárias do objeto de resposta e converte
-        this.totalPages = tes['totalPages']
-        this.cargosDTO = tes['content'] as CargoDTO[];
+        this.totalPages = chaveValor['totalPages']
+        this.cargosDTO = chaveValor['content'] as CargoDTO[];
       },
         error => {
-          this.errorService.errorAlert(error, "Ocorreu um erro ao listar os Cargos por página.")
+          this.errorService.errorHandler(error, "Ocorreu um erro ao listar os Cargos por página.")
         });
   }
 
@@ -76,7 +74,7 @@ export class CargoListaComponent implements OnInit {
         this.alertService.success("Cargo excluído com sucesso!")
         this.findAll();
       }, error => {
-        this.errorService.errorAlert(error, "Ocorreu um erro ao excluir o Cargo.")
+        this.errorService.errorHandler(error, "Ocorreu um erro ao excluir o Cargo.")
       });
   }
 
@@ -89,7 +87,7 @@ export class CargoListaComponent implements OnInit {
         }
 
       }).catch((error) =>
-        this.errorService.errorAlert(error, "Erro ao confirmar exclusão de Cargo.")
+        this.errorService.errorHandler(error, "Erro ao confirmar exclusão de Cargo.")
       );
   }
 

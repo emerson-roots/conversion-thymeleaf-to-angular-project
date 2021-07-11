@@ -56,4 +56,40 @@ export class ErrorService {
     this.router.navigate(['error'], { skipLocationChange: true });
   }
 
+  errorHandler(erro: any, message: string) {
+
+    switch (erro.status) {
+      case 403: // no backend, foi tratado como erros de autenticacao
+        let timeRedirect: number = 7000
+        let msgRedirectLogin: string = ` Voce será redirecionado para página de login em ${timeRedirect / 1000} segundos.`
+
+        // interceptor também passa por aqui,
+        // para evitar uma mensagem de erro com string ruplicada
+        // somente adiciona texto se message não conter o aviso de redirecionamento automático
+        if (erro.message.indexOf(msgRedirectLogin) == -1) {
+          erro.message = erro.message + msgRedirectLogin;
+        }
+
+        this.errorPage(erro);
+        setTimeout(() => this.router.navigate(['']), timeRedirect);
+        break
+      case 404:
+        this.errorPage(erro);
+        break
+      case 500:
+        this.errorPage(erro);
+        break
+      case undefined: // na API offline gera um erro net::ERR_CONNECTION_REFUSED sem código de status
+        erro.error = "Internal Server Error"
+        erro.status = 500;
+        erro.message = "Ocorreu algum erro de comunicação com a API/Servidor. O servidor pode estar fora do ar ou em manutenção.";
+        this.errorPage(erro);
+        break
+      default:
+        this.errorAlert(erro, message);
+        break
+    }
+
+  }
+
 }

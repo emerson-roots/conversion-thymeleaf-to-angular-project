@@ -50,7 +50,7 @@ export class FuncionarioListaComponent implements OnInit {
         error => {
           /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
            posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
-          this.errorService.errorAlert(error, "Ocorreu um erro ao listar os Funcionários.")
+          this.errorService.errorHandler(error, "Ocorreu um erro ao listar os Funcionários.")
         });
   }
 
@@ -60,7 +60,7 @@ export class FuncionarioListaComponent implements OnInit {
         this.funcionariosDTO = response
       },
         error => {
-          this.errorService.errorAlert(error, "Ocorreu um erro ao buscar os Funcionários por nome.")
+          this.errorService.errorHandler(error, "Ocorreu um erro ao buscar os Funcionários por nome.")
         });
   }
 
@@ -71,7 +71,7 @@ export class FuncionarioListaComponent implements OnInit {
         this.funcionariosDTO = response
       },
         error => {
-          this.errorService.errorAlert(error, "Ocorreu um erro ao buscar os Funcionários pelo Cargo.")
+          this.errorService.errorHandler(error, "Ocorreu um erro ao buscar os Funcionários pelo Cargo.")
         });
   }
 
@@ -82,7 +82,7 @@ export class FuncionarioListaComponent implements OnInit {
         this.funcionariosDTO = response
       },
         error => {
-          this.errorService.errorAlert(error, "Ocorreu um erro ao buscar os Funcionários por datas.")
+          this.errorService.errorHandler(error, "Ocorreu um erro ao buscar os Funcionários por datas.")
         });
   }
 
@@ -98,7 +98,7 @@ export class FuncionarioListaComponent implements OnInit {
         this.alertService.success("Funcionario excluído com sucesso!")
         this.findAll();
       }, error => {
-        this.errorService.errorAlert(error, "Ocorreu um erro ao excluir o Funcionário.")
+        this.errorService.errorHandler(error, "Ocorreu um erro ao excluir o Funcionário.")
       });
   }
 
@@ -115,7 +115,7 @@ export class FuncionarioListaComponent implements OnInit {
         }
 
       }).catch((error) =>
-        this.errorService.errorAlert(error, "Erro ao confirmar exclusão de Funcionário.")
+        this.errorService.errorHandler(error, "Erro ao confirmar exclusão de Funcionário.")
       );
   }
 

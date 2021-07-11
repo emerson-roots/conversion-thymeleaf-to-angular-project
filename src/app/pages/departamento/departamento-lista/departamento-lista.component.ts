@@ -35,7 +35,7 @@ export class DepartamentoListaComponent implements OnInit {
         }
 
       }).catch((error) =>
-        this.errorService.errorAlert(error, "Erro ao confirmar exclusão de Departamento.")
+        this.errorService.errorHandler(error, "Erro ao confirmar exclusão de Departamento.")
       );
   }
 
@@ -47,7 +47,7 @@ export class DepartamentoListaComponent implements OnInit {
         error => {
           /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
            posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
-          this.errorService.errorAlert(error, "Ocorreu um erro ao listar os departamentos.")
+          this.errorService.errorHandler(error, "Ocorreu um erro ao listar os departamentos.")
         });
   }
 
@@ -57,7 +57,7 @@ export class DepartamentoListaComponent implements OnInit {
         this.alertService.success("Departamento excluído com sucesso!")
         this.findAll();
       }, error => {
-        this.errorService.errorAlert(error, "Ocorreu um erro ao excluir o departamento.")
+        this.errorService.errorHandler(error, "Ocorreu um erro ao excluir o departamento.")
       });
   }
 

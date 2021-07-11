@@ -66,7 +66,7 @@ export class CargoCadastroComponent implements OnInit {
           this.formGroup.reset()
 
         }, error => {
-          this.errorService.errorAlert(error, "Ocorreu um erro ao tentar inserir Cargo.")
+          this.errorService.errorHandler(error, "Ocorreu um erro ao tentar inserir Cargo.")
         });
     } else {
       this.marcaCampoComoModificado(this.formGroup);
@@ -106,8 +106,9 @@ export class CargoCadastroComponent implements OnInit {
           // parametro setado no "app-routing.module.ts"
           this.cargoDTO = cargo.cargoResolver;
           this.updateForm(this.cargoDTO)
-        }
-      );
+        },error => {
+          this.errorService.errorHandler(error, "Ocorreu um erro ao pré carregar os dados para edição de Cargo.")
+        });
     }
   }
 
@@ -124,6 +125,8 @@ export class CargoCadastroComponent implements OnInit {
   listaDepartamentos() {
     return this.dptoService.findAll().subscribe(res => {
       this.dptosDTO = res;
+    }, error => {
+      this.errorService.errorHandler(error, "Ocorreu um erro ao carregar departamentos na página de Cargo/Cadastro.")
     })
   }
 

@@ -83,7 +83,7 @@ export class FuncionarioCadastroComponent implements OnInit {
           this.formGroup.reset()
 
         }, error => {
-          this.errorService.errorAlert(error, "Ocorreu um erro ao tentar inserir Funcionario.")
+          this.errorService.errorHandler(error, "Ocorreu um erro ao tentar inserir/modificar Funcionario.")
         });
     } else {
       // logica de VALIDAÇÃO aqui
@@ -128,8 +128,9 @@ export class FuncionarioCadastroComponent implements OnInit {
           // parametro setado no "app-routing.module.ts"
           this.funcionarioDTO = funcionario.funcionarioResolver;
           this.updateForm(this.funcionarioDTO)
-        }
-      );
+        }, error => {
+          this.errorService.errorHandler(error, "Ocorreu um erro ao pré carregar os dados para edição de Funcionario.");
+        });
     }
   }
 
@@ -150,7 +151,9 @@ export class FuncionarioCadastroComponent implements OnInit {
     return this.cargoService.findAll().subscribe(res => {
       this.cargosDTO = res;
     },
-      error => { })
+      error => {
+        this.errorService.errorHandler(error, "Ocorreu um erro ao carregar os Cargos para cadastrar Funcionário.");
+      })
   }
 
   listaUFs() {
@@ -158,7 +161,9 @@ export class FuncionarioCadastroComponent implements OnInit {
       .subscribe((res: any) => {
         this.ufs = res;
       },
-        error => { })
+        error => {
+          this.errorService.errorHandler(error, "Ocorreu um erro ao carregar as UFs para cadastrar Funcionário.");
+        })
   }
 
   /** implementado com base no video da Loiane

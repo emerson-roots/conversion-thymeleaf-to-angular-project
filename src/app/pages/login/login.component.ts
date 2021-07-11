@@ -1,3 +1,4 @@
+import { ErrorService } from 'src/app/services/error.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private route: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private errorService: ErrorService) { }
 
   ngOnInit(): void {
   }
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
           // limpa qualquer localStorage armazenado caso falhar autenticacao
           this.authService.logout();
           alert(error.message);
+          this.errorService.errorHandler(error, "Ocorreu um erro na ao efetuar login.");
          });
   }
 }

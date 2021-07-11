@@ -58,8 +58,10 @@ export class DepartamentoCadastroComponent implements OnInit {
         (dpto) => {
           this.dptoDTO = dpto.departamentoDTO;
           this.updateForm(this.dptoDTO)
-        }
-      );
+        }, error => {
+          this.errorService.errorHandler(error, "Ocorreu um erro ao tentar inserir/alterar departamento.")
+        });
+
     }
   }
 
@@ -89,7 +91,7 @@ export class DepartamentoCadastroComponent implements OnInit {
           this.formGroup.reset()
 
         }, error => {
-          this.errorService.errorAlert(error, "Ocorreu um erro ao tentar inserir departamento.")
+          this.errorService.errorHandler(error, "Ocorreu um erro ao tentar inserir/alterar departamento.")
         });
     } else {
       this.marcaCampoComoModificado(this.formGroup);
