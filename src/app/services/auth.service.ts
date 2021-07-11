@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { JwtHelper } from "angular2-jwt";
@@ -13,8 +14,14 @@ export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
 
+  localUser: LocalUser = {
+    token: '',
+    email: ''
+  }
+
   constructor(public http: HttpClient,
-    private storage: StorageService) {
+    private storage: StorageService,
+    private router: Router) {
   }
 
   authenticate(creds: CredenciaisDTO) {
@@ -49,5 +56,29 @@ export class AuthService {
   //basicamente remove o usuario do localStorage
   logout() {
     this.storage.setLocalUser(null as any);
+  }
+
+  expirationOfAuthentication(){
+    this.localUser = this.storage.getLocalUser();
+
+    if (this.localUser != null) {
+      if (this.jwtHelper.isTokenExpired(this.localUser.token)) {
+        // token expired
+        alert("Seu login expirou. Você será redirecionado para página de login!")
+        this.router.navigate(['']);
+      } else {
+        // token valid
+        let tokenExpiration: number = this.jwtHelper.getTokenExpirationDate(this.localUser.token).getTime();
+        let timerInMilliseconds: number = 5 * 1000;
+
+        if (tokenExpiration - (new Date).getTime() < timerInMilliseconds) {
+          // um possível refresh token pode ser implementado aqui
+          console.log("O token expirará em menos de " + (timerInMilliseconds / 1000) + " segundos.  " + this.localUser.email)
+        }
+
+      }
+    } else {
+      this.router.navigate(['']);
+    }
   }
 }
