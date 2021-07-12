@@ -59,19 +59,33 @@ export class ErrorService {
   errorHandler(erro: any, message: string) {
 
     switch (erro.status) {
-      case 403: // no backend, foi tratado como erros de autenticacao
-        let timeRedirect: number = 7000
-        let msgRedirectLogin: string = ` Voce será redirecionado para página de login em ${timeRedirect / 1000} segundos.`
+      case 403: // no backend foi tratado como NAO AUTORIZADO/FORBIDDEN
+        //
+        this.errorPage(erro);
+        break
+      case 401: // no backend (por semântica) foi tratado como erros de autenticacao (unauthenticated)
 
-        // interceptor também passa por aqui,
-        // para evitar uma mensagem de erro com string ruplicada
-        // somente adiciona texto se message não conter o aviso de redirecionamento automático
-        if (erro.message.indexOf(msgRedirectLogin) == -1) {
-          erro.message = erro.message + msgRedirectLogin;
+        /** a endpoint de login também retorna um erro 401 caso
+          * o usuario tente logar com credenciais invalidas...
+          * para evitar redirect para login dentro da propria pagina de login
+          * testa se path do erro veio de um endpoint diferente de /login
+          *
+          * há um tratamento de redirect baseado na expiracao do token implementado
+          * em auth.service */
+        if (erro.path != '/login') {
+          let timeRedirect: number = 7000
+          let msgRedirectLogin: string = ` Voce será redirecionado para página de login em ${timeRedirect / 1000} segundos.`
+
+          // interceptor também passa por aqui,
+          // para evitar uma mensagem de erro com string ruplicada
+          // somente adiciona texto se message não conter o aviso de redirecionamento automático
+          if (erro.message.indexOf(msgRedirectLogin) == -1) {
+            erro.message = erro.message + msgRedirectLogin;
+          }
+          this.errorPage(erro);
+          setTimeout(() => this.router.navigate(['']), timeRedirect);
         }
 
-        this.errorPage(erro);
-        setTimeout(() => this.router.navigate(['']), timeRedirect);
         break
       case 404:
         this.errorPage(erro);

@@ -30,7 +30,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           errorObj = JSON.parse(errorObj);
         }
 
-        if(errorObj.status == 403 || errorObj.status == 404 || errorObj == undefined){
+        if(errorObj.status == 401 || errorObj.status == 404 || errorObj == undefined){
           this.errorService.errorHandler(errorObj, "Ocorreu algum erro crítico capturado pelo interceptor.")
         }
 

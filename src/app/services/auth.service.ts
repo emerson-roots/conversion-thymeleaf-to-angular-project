@@ -64,6 +64,9 @@ export class AuthService {
     if (this.localUser != null) {
       if (this.jwtHelper.isTokenExpired(this.localUser.token)) {
         // token expired
+
+        // limpa localUser para não entrar no if novamente
+        this.storage.setLocalUser(null!);
         alert("Seu login expirou. Você será redirecionado para página de login!")
         this.router.navigate(['']);
       } else {
