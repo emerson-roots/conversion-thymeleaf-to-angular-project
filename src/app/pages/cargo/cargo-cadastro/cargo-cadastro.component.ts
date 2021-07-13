@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { DepartamentoService } from './../../../services/departamento.service';
 import { Component, OnInit } from '@angular/core';
@@ -27,7 +28,8 @@ export class CargoCadastroComponent implements OnInit {
     public errorService: ErrorService,
     public formBuilder: FormBuilder,
     public alertService: AlertService,
-    public activatedRouter: ActivatedRoute) {
+    public activatedRouter: ActivatedRoute,
+    private authService: AuthService) {
 
     // set pattern not blank on validation
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
@@ -43,9 +45,16 @@ export class CargoCadastroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // popula objeto para dropdown/combobox
-    this.listaDepartamentos();
-    this.preEdit();
+
+    this.authService.checkPermission()
+      .subscribe(() => {
+        // popula objeto para dropdown/combobox
+        this.listaDepartamentos();
+        this.preEdit();
+      }, error => {
+        this.errorService.errorHandler(error, 'Ocorreu algum erro ao checar permissões na tela de cadastro de Cargos.')
+      });
+
   }
 
   salvar() {

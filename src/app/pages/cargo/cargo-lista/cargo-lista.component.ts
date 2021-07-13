@@ -5,6 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/fragments/alert/alert.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogService } from 'src/app/utils/confirmation-dialog/confirmation-dialog.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-cargo-lista',
@@ -27,7 +28,8 @@ export class CargoListaComponent implements OnInit {
     public errorService: ErrorService,
     public alertService: AlertService,
     public router: Router,
-    private confirmationDialogService: ConfirmationDialogService) { }
+    private confirmationDialogService: ConfirmationDialogService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.findAllPageable(this.pageNumber, this.linesPerPage, this.orderBy, this.directionOrdenation);
@@ -79,16 +81,21 @@ export class CargoListaComponent implements OnInit {
   }
 
   openConfirmationDialog(id: any) {
-    this.confirmationDialogService.confirm('Confirmação de exclusão', 'Deseja confirmar a exclusão do item selecionado?')
-      .then((confirmed) => {
+    this.authService.checkPermission()
+      .subscribe(() => {
+        this.confirmationDialogService.confirm('Confirmação de exclusão', 'Deseja confirmar a exclusão do item selecionado?')
+          .then((confirmed) => {
 
-        if (confirmed) {
-          this.delete(id)
-        }
+            if (confirmed) {
+              this.delete(id)
+            }
 
-      }).catch((error) =>
-        this.errorService.errorHandler(error, "Erro ao confirmar exclusão de Cargo.")
-      );
+          }).catch((error) =>
+            this.errorService.errorHandler(error, "Erro ao confirmar exclusão de Cargo.")
+          );
+      }, error => {
+        this.errorService.errorHandler(error, "Cargo/Lista - Erro ao checar permissão para deletar.")
+      });
   }
 
   edit(id: number) {
