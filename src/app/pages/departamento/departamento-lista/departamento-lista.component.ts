@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { ErrorService } from './../../../services/error.service';
 import { AlertService } from './../../../fragments/alert/alert.service';
 import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
@@ -20,23 +21,30 @@ export class DepartamentoListaComponent implements OnInit {
     public errorService: ErrorService,
     public alertService: AlertService,
     public router: Router,
-    private confirmationDialogService: ConfirmationDialogService) { }
+    private confirmationDialogService: ConfirmationDialogService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.findAll();
   }
 
   openConfirmationDialog(id: any) {
-    this.confirmationDialogService.confirm('Confirmação de exclusão', 'Deseja confirmar a exclusão do item selecionado?')
-      .then((confirmed) => {
+    this.authService.checkPermission()
+      .subscribe(() => {
+        this.confirmationDialogService.confirm('Confirmação de exclusão', 'Deseja confirmar a exclusão do item selecionado?')
+          .then((confirmed) => {
 
-        if (confirmed) {
-          this.delete(id)
-        }
+            if (confirmed) {
+              this.delete(id)
+            }
 
-      }).catch((error) =>
-        this.errorService.errorHandler(error, "Erro ao confirmar exclusão de Departamento.")
-      );
+          }).catch((error) =>
+            this.errorService.errorHandler(error, "Erro ao confirmar exclusão de Departamento.")
+          );
+      }, error => {
+        this.errorService.errorHandler(error, "Departamento/Lista - Erro ao checar permissão para deletar.")
+      })
+
   }
 
   findAll() {
@@ -45,8 +53,6 @@ export class DepartamentoListaComponent implements OnInit {
         this.departamentosDTO = response
       },
         error => {
-          /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
-           posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
           this.errorService.errorHandler(error, "Ocorreu um erro ao listar os departamentos.")
         });
   }
