@@ -1,4 +1,4 @@
-import { API_CONFIG, Departamentos_API } from './../config/api.config';
+import { Departamentos_API } from './../config/api.config';
 import { DepartamentoDTO } from './../model/dto/departamento.dto';
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";

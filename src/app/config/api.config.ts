@@ -21,3 +21,9 @@ export const Funcionarios_API = {
   baseUrl: `${API_CONFIG.baseUrl}/employee`
 
 }
+
+export const Auth_API = {
+
+  baseUrl: `${API_CONFIG.baseUrl}/auth`
+
+}

@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { JwtHelper } from "angular2-jwt";
-import { API_CONFIG } from "../config/api.config";
+import { API_CONFIG, Auth_API } from "../config/api.config";
 import { CredenciaisDTO } from "../model/dto/credenciais.dto";
 import { LocalUser } from "../model/dto/local_user";
 import { StorageService } from "./storage.service";
@@ -84,4 +84,9 @@ export class AuthService {
       this.router.navigate(['']);
     }
   }
+
+  checkPermission(){
+    return this.http.get(`${Auth_API.baseUrl}/check_permission`);
+  }
+
 }

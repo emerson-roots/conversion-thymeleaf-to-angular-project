@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { DepartamentoDTO } from './../../../model/dto/departamento.dto';
 import { ErrorService } from './../../../services/error.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -24,7 +25,8 @@ export class DepartamentoCadastroComponent implements OnInit {
     public departamentoService: DepartamentoService,
     public errorService: ErrorService,
     public formBuilder: FormBuilder,
-    public alertService: AlertService) {
+    public alertService: AlertService,
+    private authService: AuthService) {
 
     // set pattern not blank on validation
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
@@ -39,7 +41,14 @@ export class DepartamentoCadastroComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.preEdit();
+    this.authService.checkPermission()
+      .subscribe(() => {
+        this.preEdit();
+      }, error => {
+        this.errorService.errorHandler(error, 'Ocorreu algum erro ao checar permissões na tela de cadastro de Departamentos')
+      })
+
+
 
   }
 
