@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/fragments/alert/alert.service';
@@ -24,7 +25,8 @@ export class FuncionarioListaComponent implements OnInit {
     public alertService: AlertService,
     private confirmationDialogService: ConfirmationDialogService,
     public router: Router,
-    private cargoService: CargoService) { }
+    private cargoService: CargoService,
+    private authService: AuthService) { }
 
   // variaveis para trabalhar em conjunto do ng-boostrap-collapse do html
   public nomeCollapsed = true;
@@ -43,53 +45,78 @@ export class FuncionarioListaComponent implements OnInit {
   }
 
   findAll() {
-    this.funcionarioService.findAll()
-      .subscribe(response => {
-        this.funcionariosDTO = response
-      },
-        error => {
-          /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
-           posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
-          this.errorService.errorHandler(error, "Ocorreu um erro ao listar os Funcionários.")
-        });
+    this.authService.checkPermission()
+      .subscribe(() => {
+        this.funcionarioService.findAll()
+          .subscribe(response => {
+            this.funcionariosDTO = response
+          },
+            error => {
+              /* responsabilidade de mostrar erros transferida para o interceptor de erros criado
+               posteriormente pode ser implementado uma forma de mostrar o erro para o usuario */
+              this.errorService.errorHandler(error, "Ocorreu um erro ao listar os Funcionários.")
+            });
+      }, error => {
+        this.errorService.errorHandler(error, "Erro ao checar permissao para listar todos os Funcionarios.")
+      });
   }
 
   findAllByName(nomeParam: string) {
-    this.funcionarioService.findAllByName(nomeParam)
-      .subscribe(response => {
-        this.funcionariosDTO = response
-      },
-        error => {
-          this.errorService.errorHandler(error, "Ocorreu um erro ao buscar os Funcionários por nome.")
-        });
+    this.authService.checkPermission()
+      .subscribe(() => {
+        this.funcionarioService.findAllByName(nomeParam)
+          .subscribe(response => {
+            this.funcionariosDTO = response
+          },
+            error => {
+              this.errorService.errorHandler(error, "Ocorreu um erro ao buscar os Funcionários por nome.")
+            });
+      }, error => {
+        this.errorService.errorHandler(error, "Erro ao checar permissao para buscar Funcionarios por nome.")
+      });
   }
 
   findAllByOffice(idParam: number) {
 
-    this.funcionarioService.findAllByOffice(idParam)
-      .subscribe(response => {
-        this.funcionariosDTO = response
-      },
-        error => {
-          this.errorService.errorHandler(error, "Ocorreu um erro ao buscar os Funcionários pelo Cargo.")
-        });
+    this.authService.checkPermission()
+      .subscribe(() => {
+        this.funcionarioService.findAllByOffice(idParam)
+          .subscribe(response => {
+            this.funcionariosDTO = response
+          },
+            error => {
+              this.errorService.errorHandler(error, "Ocorreu um erro ao buscar os Funcionários pelo Cargo.")
+            });
+      }, error => {
+        this.errorService.errorHandler(error, "Erro ao checar permissao para buscar Funcionarios por cargo.")
+      });
   }
 
   findAllByDate(dataEntrada: string, dataSaida: string) {
 
-    this.funcionarioService.findAllByDate(dataEntrada, dataSaida)
-      .subscribe(response => {
-        this.funcionariosDTO = response
-      },
-        error => {
-          this.errorService.errorHandler(error, "Ocorreu um erro ao buscar os Funcionários por datas.")
-        });
+    this.authService.checkPermission()
+      .subscribe(() => {
+        this.funcionarioService.findAllByDate(dataEntrada, dataSaida)
+          .subscribe(response => {
+            this.funcionariosDTO = response
+          },
+            error => {
+              this.errorService.errorHandler(error, "Ocorreu um erro ao buscar os Funcionários por datas.")
+            });
+      }, error => {
+        this.errorService.errorHandler(error, "Erro ao checar permissao para buscar Funcionarios por data.")
+      });
   }
 
   getCargos() {
-    return this.cargoService.findAll().subscribe(res => {
-      this.cargosDTO = res;
-    })
+    this.authService.checkPermission()
+      .subscribe(() => {
+        return this.cargoService.findAll().subscribe(res => {
+          this.cargosDTO = res;
+        })
+      }, error => {
+        this.errorService.errorHandler(error, "Erro ao checar permissao de listagem de cargos para Funcionários.")
+      });
   }
 
   delete(id: number) {
@@ -107,16 +134,21 @@ export class FuncionarioListaComponent implements OnInit {
   }
 
   openConfirmationDialog(id: number) {
-    this.confirmationDialogService.confirm('Confirmação de exclusão', 'Deseja confirmar a exclusão do item selecionado?')
-      .then((confirmed) => {
+    this.authService.checkPermission()
+      .subscribe(() => {
+        this.confirmationDialogService.confirm('Confirmação de exclusão', 'Deseja confirmar a exclusão do item selecionado?')
+          .then((confirmed) => {
 
-        if (confirmed) {
-          this.delete(id)
-        }
+            if (confirmed) {
+              this.delete(id)
+            }
 
-      }).catch((error) =>
-        this.errorService.errorHandler(error, "Erro ao confirmar exclusão de Funcionário.")
-      );
+          }).catch((error) =>
+            this.errorService.errorHandler(error, "Erro ao confirmar exclusão de Funcionário.")
+          );
+      }, error => {
+        this.errorService.errorHandler(error, "Erro ao checar permissao de exclusão de Funcionário.")
+      });
   }
 
 }

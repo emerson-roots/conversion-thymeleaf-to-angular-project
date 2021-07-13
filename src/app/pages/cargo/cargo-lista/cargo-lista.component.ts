@@ -74,7 +74,7 @@ export class CargoListaComponent implements OnInit {
     this.cargoService.delete(id)
       .subscribe(() => {
         this.alertService.success("Cargo excluído com sucesso!")
-        this.findAll();
+        this.findAllPageable(this.pageNumber, this.linesPerPage, this.orderBy, this.directionOrdenation);
       }, error => {
         this.errorService.errorHandler(error, "Ocorreu um erro ao excluir o Cargo.")
       });

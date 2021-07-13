@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CargoService } from './../../../services/cargo.service';
@@ -29,7 +30,8 @@ export class FuncionarioCadastroComponent implements OnInit {
     public errorService: ErrorService,
     public formBuilder: FormBuilder,
     public alertService: AlertService,
-    public activatedRouter: ActivatedRoute) {
+    public activatedRouter: ActivatedRoute,
+    private authService: AuthService) {
 
     // set pattern not blank on validation
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
@@ -59,9 +61,14 @@ export class FuncionarioCadastroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listaCargos();
-    this.listaUFs();
-    this.preEdit();
+    this.authService.checkPermission()
+      .subscribe(() => {
+        this.listaCargos();
+        this.listaUFs();
+        this.preEdit();
+      }, error => {
+        this.errorService.errorHandler(error, "Ocorreu um erro ao checar permissões de cadastro de Funcionario.")
+      });
   }
 
   salvar() {
@@ -103,7 +110,7 @@ export class FuncionarioCadastroComponent implements OnInit {
         controle?.markAsDirty();
         controle?.markAsTouched();
 
-        if(controle instanceof FormGroup){
+        if (controle instanceof FormGroup) {
           this.marcaCampoComoModificado(controle);
         }
 
