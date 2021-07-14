@@ -1,3 +1,4 @@
+import { ErrorService } from './error.service';
 import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -21,7 +22,8 @@ export class AuthService {
 
   constructor(public http: HttpClient,
     private storage: StorageService,
-    private router: Router) {
+    private router: Router,
+    private errorService: ErrorService) {
   }
 
   authenticate(creds: CredenciaisDTO) {
@@ -72,11 +74,18 @@ export class AuthService {
       } else {
         // token valid
         let tokenExpiration: number = this.jwtHelper.getTokenExpirationDate(this.localUser.token).getTime();
-        let timerInMilliseconds: number = 5 * 1000;
+        let timerInMilliseconds: number = 50 * 1000;
 
         if (tokenExpiration - (new Date).getTime() < timerInMilliseconds) {
           // um possível refresh token pode ser implementado aqui
-          console.log("O token expirará em menos de " + (timerInMilliseconds / 1000) + " segundos.  " + this.localUser.email)
+          console.log("Falta menos de " + (timerInMilliseconds / 1000) + " segundos para o token expirar. Ele será renovado agora.  " + this.localUser.email)
+
+          this.refreshToken()
+            .subscribe(response => {
+              this.sucessfullLogin(response.headers.get('Authorization')!);
+            }, error => {
+              this.errorService.errorHandler(error, "Erro no refresh token.")
+            })
         }
 
       }
@@ -87,6 +96,15 @@ export class AuthService {
 
   checkPermission(){
     return this.http.get(`${Auth_API.baseUrl}/check_permission`);
+  }
+
+  refreshToken() {
+    return this.http.post(`${Auth_API.baseUrl}/refresh_token`,
+      {},
+      {
+        observe: 'response',
+        responseType: 'text'
+      });
   }
 
 }
