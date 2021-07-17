@@ -2,6 +2,8 @@ import { ErrorService } from './../services/error.service';
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx'; // foi necessario instalar rxjs-compat para corrigir erro
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 /* esta classe tem a função de captar os erros da API backend e
  propagar para o frontend
@@ -14,10 +16,10 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     //caso ocorra tudo bem, continua com a requisição
-    return next.handle(req)
+    return next.handle(req).pipe(
 
       //caso ocorra algum erro, intercepta o erro e propaga
-      .catch((error, caught) => {
+      catchError(error => {
 
         //testa se a requisição possui o campo erro
         let errorObj = error;
@@ -34,8 +36,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.errorService.errorHandler(errorObj, "Ocorreu algum erro crítico capturado pelo interceptor.")
         }
 
-        return Observable.throw(errorObj);
-      }) as any;
+        return throwError(errorObj);
+      }));
   }
 }
 

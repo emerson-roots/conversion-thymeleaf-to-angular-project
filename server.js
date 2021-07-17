@@ -26,6 +26,11 @@
     "start": "node server.js",
     "build": "ng build --prod",
 
+    em angular.json o tamanho de maximumWarning e maximumError ajustar
+    "type": "initial",
+    "maximumWarning": "2mb",
+    "maximumError": "5mb"
+
  **/
 
 
@@ -44,6 +49,4 @@ app.get("/*", (req, res) => {
 });
 
 // Inicia a aplicação pela porta configurada
-app.listen(PORT, () => {
-    console.log('=== SERVIDOR INICIADO NA PORTA: ' + PORT)
-});
+app.listen(PORT);
