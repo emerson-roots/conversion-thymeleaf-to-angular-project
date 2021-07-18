@@ -8,6 +8,10 @@
 
 /*================================================*/
 
+:root {
+    --azul-claro-nav-item: rgb(117, 43, 236);
+}
+
 
 /*
  * Base structure
@@ -25,11 +29,11 @@ header,
 }
 
 
-/* ajusta cor do icone do botao edit nas listas
-cor original foi perdida devido exclusão do href */
+/* botoes de ordenacao table */
 
-.oi-brush {
-    color: white;
+.oi-arrow-circle-bottom,
+.oi-arrow-circle-top {
+    color: var(--azul-claro-nav-item);
 }
 
 
@@ -51,7 +55,7 @@ cor original foi perdida devido exclusão do href */
 
 .drawer-container-example {
     width: 100%;
-    height: 107%;
+    height: 89vh;
     margin: 0px;
 }
 
@@ -92,7 +96,7 @@ cor original foi perdida devido exclusão do href */
 
 .sidebar {
     width: 0px;
-    height: 100vh;
+    height: 100%;
     border-top: 1px solid #eee;
     border-right: 1px solid #eee;
     background-color: #f8f9fa;
@@ -165,7 +169,7 @@ cor original foi perdida devido exclusão do href */
   */
 
 .layout-footer {
-    position: relative;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;

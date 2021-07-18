@@ -58,6 +58,7 @@ export class AuthService {
   //basicamente remove o usuario do localStorage
   logout() {
     this.storage.setLocalUser(null as any);
+    this.router.navigate(['']);
   }
 
   expirationOfAuthentication(){

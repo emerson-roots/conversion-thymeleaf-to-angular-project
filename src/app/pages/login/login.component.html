@@ -4,7 +4,35 @@
             <div class="myform form ">
                 <div class="logo mb-3">
                     <div class="col-md-12 text-center">
-                        <h1>Login</h1>
+                        <h1>
+                            Login
+                        </h1>
+                    </div>
+                    <div class="alert alert-info text-center" role="alert">
+
+                        <strong>
+                          Acessar perfil ADMINISTRADOR:
+                          <button type="button" class="btn btn-outline-success btn-sm rounded-circle" triggers="mouseenter:mouseleave"
+                            popoverTitle="Privilégios de ADMINISTRADOR"
+                            style="border:1px solid; border-radius:50%; width:30px; height:30px;"
+                            ngbPopover="O acesso administrador tem privilégio total, podendo cadastrar, alterar, listar e deletar qualquer registro!">
+                            <span class="oi oi-info"></span>
+                          </button>
+                        </strong>
+                        <br>
+                        <span>admin@admin | senha: admin</span>
+                        <br>
+                        <strong>
+                          Acessar perfil CONVIDADO:
+                          <button type="button" class="btn btn-outline-success btn-sm rounded-circle" triggers="mouseenter:mouseleave"
+                            popoverTitle="Privilégios de CONVIDADO"
+                            style="border:1px solid; border-radius:50%; width:30px; height:30px;"
+                            ngbPopover="O acesso convidado possui restrições. Ele pode listar Departamentos e Cargos mas é bloqueado para qualquer ação em Funcionários.
+                            São restritos também para deletar, cadastrar ou alterar qualquer registro. Faça o teste, EXPERIMENTE!">
+                            <span class="oi oi-info"></span>
+                          </button>
+                          <br></strong>
+                        <span>convidado@convidado | senha: convidado</span>
                     </div>
                 </div>
                 <form>
