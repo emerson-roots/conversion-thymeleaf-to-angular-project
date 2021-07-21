@@ -12,6 +12,10 @@
     --azul-claro-nav-item: rgb(117, 43, 236);
 }
 
+a {
+    cursor: pointer;
+}
+
 
 /*
  * Base structure
@@ -169,7 +173,7 @@ header,
   */
 
 .layout-footer {
-    position: fixed;
+    position: static;
     left: 0;
     right: 0;
     bottom: 0;
