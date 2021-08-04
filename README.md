@@ -1,27 +1,75 @@
-# ConversionThymeleafToAngularProject
+# Sobre o projeto:
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/emerson-roots/conversion-thymeleaf-to-angular-project/blob/master/LICENSE) 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
+### Este foi meu primeiro projeto em ANGULAR/Bootstrap 4 para consumir uma API Rest Java/Spring Boot/Spring Security implementado com base em pesquisas, estudo de caso, tentativa e erro e de forma autodidata.
 
-## Development server
+Para o aprendizado inicial, foi feito uma conversão de um projeto já existente de padrão template engine Thymeleaf na qual o intuito era replicar pelo angular uma cópia fiel das views e seu comportamento thymeleaf. A parte de segurança de autênticação/autorização foi uma melhoria, uma espécie de contribuição adicionada ao projeto original.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Foi criado para consumir uma API Rest java (que também foi reescrita para se adaptar ao angular) hospedada no HEROKU. Para mais detalhes sobre a API Rest, acesse o repositório no github clicando [AQUI!](https://github.com/emerson-roots/curso-spring-MVC-thymeleaf) 
 
-## Code scaffolding
+- Este projeto foi gerado através do [Angular CLI](https://github.com/angular/angular-cli) versão 12.0.2.
+- Sua hospedagem também foi feita no HEROKU.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Link do projeto angular na nuvem (HEROKU) e demonstração de telas
 
-## Build
+- https://angular-frontend-to-spring.herokuapp.com/
+- Vale ressaltar que a API consumida por este projeto é protegida por autênticação e autorização através do Spring Security. 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Demonstração da tela de login e suas credenciais de acesso;
+![LOGIN](https://github.com/emerson-roots/assets/blob/master/assets/angular_frontend_to_spring/view_login.jpg)
 
-## Running unit tests
+### Tela HOME
+![HOME](https://github.com/emerson-roots/assets/blob/master/assets/angular_frontend_to_spring/view_home.jpg)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Tela de cadastro de FUNCIONÁRIOS e algumas validações (Acesso ADMINISTRADOR)
+![Cadastro e validações](https://github.com/emerson-roots/assets/blob/master/assets/angular_frontend_to_spring/view_insert_validation.jpg)
 
-## Running end-to-end tests
+### Tela de listagem de FUNCIONÁRIOS (Acesso ADMINISTRADOR)
+![Listagem](https://github.com/emerson-roots/assets/blob/master/assets/angular_frontend_to_spring/view_list.jpg)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Tela de erro ao tentar acessar um recurso com perfil de usuário sem autorização (Acesso CONVIDADO)
+![Recurso sem permissão](https://github.com/emerson-roots/assets/blob/master/assets/angular_frontend_to_spring/view_access_restricted.jpg)
 
-## Further help
+# Tecnologias utilizadas:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+-	Angular 12
+-	Node.js
+-	HTML/CSS
+-	Bootstrap 4
+-	JWT (JSON Web Token)
+
+# Como executar o projeto LOCALMENTE
+
+## Pré-requisitos: 
+- Angular CLI: 12.0.2
+- node.js version 12.18.3
+- npm version 6.14.6
+
+
+```bash
+# na linha de comando, clonar repositório
+git clone https://github.com/emerson-roots/conversion-thymeleaf-to-angular-project
+
+# entrar na pasta do projeto clonado
+
+# fazer install das dependências através do comando (aguarde o download e instalação):
+npm install
+
+# iniciar a aplicação através do comando:
+ng serve --open
+
+# se o comando anterior não abrir o navegador automáticamente, 
+# teste a aplicação através da URL (lembre-se de confirmar a porta padrão da sua máquina):
+http://localhost:4200/ 
+
+
+# pausar/stopar aplicação
+CTRL+C na linha de comando
+```
+
+
+# Autor
+
+*Emerson Melo de Lima*
+
+emerson_sardinha@hotmail.com
